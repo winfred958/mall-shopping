@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winfred.mall.customer.mapper.UserInfoMapper">
+
+  <!-- 通用查询映射结果 -->
+  <resultMap id="BaseResultMap" type="com.winfred.mall.customer.entity.UserInfoEntity">
+    <id column="id" property="id"/>
+    <result column="user_display_id" property="userDisplayId"/>
+    <result column="display_name" property="displayName"/>
+    <result column="user_name" property="userName"/>
+    <result column="email" property="email"/>
+    <result column="phone_num" property="phoneNum"/>
+    <result column="password" property="password"/>
+    <result column="active_status" property="activeStatus"/>
+    <result column="register_time" property="registerTime"/>
+    <result column="active_timestamp" property="activeTimestamp"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+  <!-- 通用查询结果列 -->
+  <sql id="Base_Column_List">
+    `id`,
+                `user_display_id`, 
+                `display_name`, 
+                `user_name`, 
+                `email`, 
+                `phone_num`, 
+                `password`, 
+                `active_status`, 
+                `register_time`, 
+                `active_timestamp`, 
+                `create_time`, 
+                `update_time`
+  </sql>
+
+  <select id="queryList" resultMap="BaseResultMap" parameterType="com.winfred.mall.customer.entity.UserInfoEntity">
+    SELECT
+    `id`,
+    `user_display_id`,
+    `display_name`,
+    `user_name`,
+    `email`,
+    `phone_num`,
+    `password`,
+    `active_status`,
+    `register_time`,
+    `active_timestamp`,
+    `create_time`,
+    `update_time`
+    FROM `user_info`
+    <where>
+      <if test="id != null and id != ''">
+        AND `id` = #{id}
+      </if>
+      <if test="userDisplayId != null and userDisplayId != ''">
+        AND `user_display_id` = #{userDisplayId}
+      </if>
+      <if test="displayName != null and displayName != ''">
+        AND `display_name` = #{displayName}
+      </if>
+      <if test="userName != null and userName != ''">
+        AND `user_name` = #{userName}
+      </if>
+      <if test="email != null and email != ''">
+        AND `email` = #{email}
+      </if>
+      <if test="phoneNum != null and phoneNum != ''">
+        AND `phone_num` = #{phoneNum}
+      </if>
+      <if test="password != null and password != ''">
+        AND `password` = #{password}
+      </if>
+      <if test="activeStatus != null and activeStatus != ''">
+        AND `active_status` = #{activeStatus}
+      </if>
+      <if test="registerTime != null and registerTime != ''">
+        AND `register_time` = #{registerTime}
+      </if>
+      <if test="activeTimestamp != null and activeTimestamp != ''">
+        AND `active_timestamp` = #{activeTimestamp}
+      </if>
+      <if test="createTime != null and createTime != ''">
+        AND `create_time` = #{createTime}
+      </if>
+      <if test="updateTime != null and updateTime != ''">
+        AND `update_time` = #{updateTime}
+      </if>
+    </where>
+    <if test="orders != null">
+      ORDER BY
+      <foreach collection="orders" item="order" open="" separator="," close="">
+        ${order.column} ${order.rule}
+      </foreach>
+    </if>
+    <if test="offset != null and size != null">
+      LIMIT ${offset}, ${size}
+    </if>
+  </select>
+
+  <select id="queryListCount" resultType="java.lang.Integer"
+          parameterType="com.winfred.mall.customer.entity.UserInfoEntity">
+    SELECT
+    COUNT(1)
+    FROM `user_info`
+    <where>
+      <if test="id != null and id != ''">
+        AND `id` = #{id}
+      </if>
+      <if test="userDisplayId != null and userDisplayId != ''">
+        AND `user_display_id` = #{userDisplayId}
+      </if>
+      <if test="displayName != null and displayName != ''">
+        AND `display_name` = #{displayName}
+      </if>
+      <if test="userName != null and userName != ''">
+        AND `user_name` = #{userName}
+      </if>
+      <if test="email != null and email != ''">
+        AND `email` = #{email}
+      </if>
+      <if test="phoneNum != null and phoneNum != ''">
+        AND `phone_num` = #{phoneNum}
+      </if>
+      <if test="password != null and password != ''">
+        AND `password` = #{password}
+      </if>
+      <if test="activeStatus != null and activeStatus != ''">
+        AND `active_status` = #{activeStatus}
+      </if>
+      <if test="registerTime != null and registerTime != ''">
+        AND `register_time` = #{registerTime}
+      </if>
+      <if test="activeTimestamp != null and activeTimestamp != ''">
+        AND `active_timestamp` = #{activeTimestamp}
+      </if>
+      <if test="createTime != null and createTime != ''">
+        AND `create_time` = #{createTime}
+      </if>
+      <if test="updateTime != null and updateTime != ''">
+        AND `update_time` = #{updateTime}
+      </if>
+    </where>
+  </select>
+
+  <insert id="addOne" parameterType="com.winfred.mall.customer.entity.UserInfoEntity">
+    INSERT INTO `user_info`
+    (`id`,
+     `user_display_id`,
+     `display_name`,
+     `user_name`,
+     `email`,
+     `phone_num`,
+     `password`,
+     `active_status`,
+     `register_time`,
+     `active_timestamp`,
+     `create_time`,
+     `update_time`)
+    VALUES (#{id},
+            #{userDisplayId},
+            #{displayName},
+            #{userName},
+            #{email},
+            #{phoneNum},
+            #{password},
+            #{activeStatus},
+            #{registerTime},
+            #{activeTimestamp},
+            #{createTime},
+            #{updateTime})
+  </insert>
+
+  <insert id="bulkUpsert" parameterType="java.util.List">
+    REPLACE INTO `user_info`
+    (
+    `id`,
+    `user_display_id`,
+    `display_name`,
+    `user_name`,
+    `email`,
+    `phone_num`,
+    `password`,
+    `active_status`,
+    `register_time`,
+    `active_timestamp`,
+    `create_time`,
+    `update_time`
+    )
+    VALUES
+    <foreach collection="items" index="index" item="item" separator=",">
+      (
+      #{item.id},
+      #{item.userDisplayId},
+      #{item.displayName},
+      #{item.userName},
+      #{item.email},
+      #{item.phoneNum},
+      #{item.password},
+      #{item.activeStatus},
+      #{item.registerTime},
+      #{item.activeTimestamp},
+      #{item.createTime},
+      #{item.updateTime}
+      )
+    </foreach>
+  </insert>
+
+  <select id="queryByIds" resultMap="BaseResultMap" parameterType="java.util.List">
+    SELECT
+    `id`,
+    `user_display_id`,
+    `display_name`,
+    `user_name`,
+    `email`,
+    `phone_num`,
+    `password`,
+    `active_status`,
+    `register_time`,
+    `active_timestamp`,
+    `create_time`,
+    `update_time`
+    FROM `user_info`
+    <where>
+      id IN
+      <foreach collection="items" item="item" open="(" separator="," close=")">#{item}
+      </foreach>
+    </where>
+  </select>
+
+  <update id="updateIfNotNullById" parameterType="com.winfred.mall.customer.entity.UserInfoEntity">
+    UPDATE `user_info`
+    <set>
+      <if test="userDisplayId != null">
+        `user_display_id` = #{userDisplayId},
+      </if>
+      <if test="displayName != null">
+        `display_name` = #{displayName},
+      </if>
+      <if test="userName != null">
+        `user_name` = #{userName},
+      </if>
+      <if test="email != null">
+        `email` = #{email},
+      </if>
+      <if test="phoneNum != null">
+        `phone_num` = #{phoneNum},
+      </if>
+      <if test="password != null">
+        `password` = #{password},
+      </if>
+      <if test="activeStatus != null">
+        `active_status` = #{activeStatus},
+      </if>
+      <if test="registerTime != null">
+        `register_time` = #{registerTime},
+      </if>
+      <if test="activeTimestamp != null">
+        `active_timestamp` = #{activeTimestamp},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+      <if test="updateTime != null">
+        `update_time` = #{updateTime}
+      </if>
+    </set>
+    <where>
+      `id` = #{id}
+    </where>
+  </update>
+</mapper>

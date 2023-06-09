@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winfred.mall.customer.mapper.UserAddressMapper">
+
+  <!-- 通用查询映射结果 -->
+  <resultMap id="BaseResultMap" type="com.winfred.mall.customer.entity.UserAddressEntity">
+    <id column="id" property="id"/>
+    <result column="user_id" property="userId"/>
+    <result column="province" property="province"/>
+    <result column="city" property="city"/>
+    <result column="county" property="county"/>
+    <result column="address" property="address"/>
+    <result column="create_timestamp" property="createTimestamp"/>
+    <result column="active_timestamp" property="activeTimestamp"/>
+    <result column="update_timestamp" property="updateTimestamp"/>
+  </resultMap>
+
+  <!-- 通用查询结果列 -->
+  <sql id="Base_Column_List">
+    `id`,
+                `user_id`, 
+                `province`, 
+                `city`, 
+                `county`, 
+                `address`, 
+                `create_timestamp`, 
+                `active_timestamp`, 
+                `update_timestamp`
+  </sql>
+
+  <select id="queryList" resultMap="BaseResultMap" parameterType="com.winfred.mall.customer.entity.UserAddressEntity">
+    SELECT
+    `id`,
+    `user_id`,
+    `province`,
+    `city`,
+    `county`,
+    `address`,
+    `create_timestamp`,
+    `active_timestamp`,
+    `update_timestamp`
+    FROM `user_address`
+    <where>
+      <if test="id != null and id != ''">
+        AND `id` = #{id}
+      </if>
+      <if test="userId != null and userId != ''">
+        AND `user_id` = #{userId}
+      </if>
+      <if test="province != null and province != ''">
+        AND `province` = #{province}
+      </if>
+      <if test="city != null and city != ''">
+        AND `city` = #{city}
+      </if>
+      <if test="county != null and county != ''">
+        AND `county` = #{county}
+      </if>
+      <if test="address != null and address != ''">
+        AND `address` = #{address}
+      </if>
+      <if test="createTimestamp != null and createTimestamp != ''">
+        AND `create_timestamp` = #{createTimestamp}
+      </if>
+      <if test="activeTimestamp != null and activeTimestamp != ''">
+        AND `active_timestamp` = #{activeTimestamp}
+      </if>
+      <if test="updateTimestamp != null and updateTimestamp != ''">
+        AND `update_timestamp` = #{updateTimestamp}
+      </if>
+    </where>
+    <if test="orders != null">
+      ORDER BY
+      <foreach collection="orders" item="order" open="" separator="," close="">
+        ${order.column} ${order.rule}
+      </foreach>
+    </if>
+    <if test="offset != null and size != null">
+      LIMIT ${offset}, ${size}
+    </if>
+  </select>
+
+  <select id="queryListCount" resultType="java.lang.Integer"
+          parameterType="com.winfred.mall.customer.entity.UserAddressEntity">
+    SELECT
+    COUNT(1)
+    FROM `user_address`
+    <where>
+      <if test="id != null and id != ''">
+        AND `id` = #{id}
+      </if>
+      <if test="userId != null and userId != ''">
+        AND `user_id` = #{userId}
+      </if>
+      <if test="province != null and province != ''">
+        AND `province` = #{province}
+      </if>
+      <if test="city != null and city != ''">
+        AND `city` = #{city}
+      </if>
+      <if test="county != null and county != ''">
+        AND `county` = #{county}
+      </if>
+      <if test="address != null and address != ''">
+        AND `address` = #{address}
+      </if>
+      <if test="createTimestamp != null and createTimestamp != ''">
+        AND `create_timestamp` = #{createTimestamp}
+      </if>
+      <if test="activeTimestamp != null and activeTimestamp != ''">
+        AND `active_timestamp` = #{activeTimestamp}
+      </if>
+      <if test="updateTimestamp != null and updateTimestamp != ''">
+        AND `update_timestamp` = #{updateTimestamp}
+      </if>
+    </where>
+  </select>
+
+  <insert id="addOne" parameterType="com.winfred.mall.customer.entity.UserAddressEntity">
+    INSERT INTO `user_address`
+    (`id`,
+     `user_id`,
+     `province`,
+     `city`,
+     `county`,
+     `address`,
+     `create_timestamp`,
+     `active_timestamp`,
+     `update_timestamp`)
+    VALUES (#{id},
+            #{userId},
+            #{province},
+            #{city},
+            #{county},
+            #{address},
+            #{createTimestamp},
+            #{activeTimestamp},
+            #{updateTimestamp})
+  </insert>
+
+  <insert id="bulkUpsert" parameterType="java.util.List">
+    REPLACE INTO `user_address`
+    (
+    `id`,
+    `user_id`,
+    `province`,
+    `city`,
+    `county`,
+    `address`,
+    `create_timestamp`,
+    `active_timestamp`,
+    `update_timestamp`
+    )
+    VALUES
+    <foreach collection="items" index="index" item="item" separator=",">
+      (
+      #{item.id},
+      #{item.userId},
+      #{item.province},
+      #{item.city},
+      #{item.county},
+      #{item.address},
+      #{item.createTimestamp},
+      #{item.activeTimestamp},
+      #{item.updateTimestamp}
+      )
+    </foreach>
+  </insert>
+
+  <select id="queryByIds" resultMap="BaseResultMap" parameterType="java.util.List">
+    SELECT
+    `id`,
+    `user_id`,
+    `province`,
+    `city`,
+    `county`,
+    `address`,
+    `create_timestamp`,
+    `active_timestamp`,
+    `update_timestamp`
+    FROM `user_address`
+    <where>
+      id IN
+      <foreach collection="items" item="item" open="(" separator="," close=")">#{item}
+      </foreach>
+    </where>
+  </select>
+
+  <update id="updateIfNotNullById" parameterType="com.winfred.mall.customer.entity.UserAddressEntity">
+    UPDATE `user_address`
+    <set>
+      <if test="userId != null">
+        `user_id` = #{userId},
+      </if>
+      <if test="province != null">
+        `province` = #{province},
+      </if>
+      <if test="city != null">
+        `city` = #{city},
+      </if>
+      <if test="county != null">
+        `county` = #{county},
+      </if>
+      <if test="address != null">
+        `address` = #{address},
+      </if>
+      <if test="createTimestamp != null">
+        `create_timestamp` = #{createTimestamp},
+      </if>
+      <if test="activeTimestamp != null">
+        `active_timestamp` = #{activeTimestamp},
+      </if>
+      <if test="updateTimestamp != null">
+        `update_timestamp` = #{updateTimestamp}
+      </if>
+    </set>
+    <where>
+      `id` = #{id}
+    </where>
+  </update>
+</mapper>

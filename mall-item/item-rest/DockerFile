@@ -1,0 +1,7 @@
+FROM java:8-jre
+MAINTAINER kevin <kevin_789@126.com>
+
+ADD ./target/item-rest*exec.jar /app/item-rest.jar
+CMD ["java", "-Xms2g","-Xmx2g", "-XX:+UseG1GC","-XX:-UseGCOverheadLimit", "-jar", "/app/mall-search-rest.jar"]
+
+EXPOSE 8080

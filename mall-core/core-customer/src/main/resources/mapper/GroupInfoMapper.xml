@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winfred.mall.customer.mapper.GroupInfoMapper">
+
+  <!-- 通用查询映射结果 -->
+  <resultMap id="BaseResultMap" type="com.winfred.mall.customer.entity.GroupInfoEntity">
+    <id column="id" property="id"/>
+    <result column="group_name" property="groupName"/>
+    <result column="parent_id" property="parentId"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+  <!-- 通用查询结果列 -->
+  <sql id="Base_Column_List">
+    `id`,
+                `group_name`, 
+                `parent_id`, 
+                `create_time`, 
+                `update_time`
+  </sql>
+
+  <select id="queryList" resultMap="BaseResultMap" parameterType="com.winfred.mall.customer.entity.GroupInfoEntity">
+    SELECT
+    `id`,
+    `group_name`,
+    `parent_id`,
+    `create_time`,
+    `update_time`
+    FROM `group_info`
+    <where>
+      <if test="id != null and id != ''">
+        AND `id` = #{id}
+      </if>
+      <if test="groupName != null and groupName != ''">
+        AND `group_name` = #{groupName}
+      </if>
+      <if test="parentId != null and parentId != ''">
+        AND `parent_id` = #{parentId}
+      </if>
+      <if test="createTime != null and createTime != ''">
+        AND `create_time` = #{createTime}
+      </if>
+      <if test="updateTime != null and updateTime != ''">
+        AND `update_time` = #{updateTime}
+      </if>
+    </where>
+    <if test="orders != null">
+      ORDER BY
+      <foreach collection="orders" item="order" open="" separator="," close="">
+        ${order.column} ${order.rule}
+      </foreach>
+    </if>
+    <if test="offset != null and size != null">
+      LIMIT ${offset}, ${size}
+    </if>
+  </select>
+
+  <select id="queryListCount" resultType="java.lang.Integer"
+          parameterType="com.winfred.mall.customer.entity.GroupInfoEntity">
+    SELECT
+    COUNT(1)
+    FROM `group_info`
+    <where>
+      <if test="id != null and id != ''">
+        AND `id` = #{id}
+      </if>
+      <if test="groupName != null and groupName != ''">
+        AND `group_name` = #{groupName}
+      </if>
+      <if test="parentId != null and parentId != ''">
+        AND `parent_id` = #{parentId}
+      </if>
+      <if test="createTime != null and createTime != ''">
+        AND `create_time` = #{createTime}
+      </if>
+      <if test="updateTime != null and updateTime != ''">
+        AND `update_time` = #{updateTime}
+      </if>
+    </where>
+  </select>
+
+  <insert id="addOne" parameterType="com.winfred.mall.customer.entity.GroupInfoEntity">
+    INSERT INTO `group_info`
+    (`id`,
+     `group_name`,
+     `parent_id`,
+     `create_time`,
+     `update_time`)
+    VALUES (#{id},
+            #{groupName},
+            #{parentId},
+            #{createTime},
+            #{updateTime})
+  </insert>
+
+  <insert id="bulkUpsert" parameterType="java.util.List">
+    REPLACE INTO `group_info`
+    (
+    `id`,
+    `group_name`,
+    `parent_id`,
+    `create_time`,
+    `update_time`
+    )
+    VALUES
+    <foreach collection="items" index="index" item="item" separator=",">
+      (
+      #{item.id},
+      #{item.groupName},
+      #{item.parentId},
+      #{item.createTime},
+      #{item.updateTime}
+      )
+    </foreach>
+  </insert>
+
+  <select id="queryByIds" resultMap="BaseResultMap" parameterType="java.util.List">
+    SELECT
+    `id`,
+    `group_name`,
+    `parent_id`,
+    `create_time`,
+    `update_time`
+    FROM `group_info`
+    <where>
+      id IN
+      <foreach collection="items" item="item" open="(" separator="," close=")">#{item}
+      </foreach>
+    </where>
+  </select>
+
+  <update id="updateIfNotNullById" parameterType="com.winfred.mall.customer.entity.GroupInfoEntity">
+    UPDATE `group_info`
+    <set>
+      <if test="groupName != null">
+        `group_name` = #{groupName},
+      </if>
+      <if test="parentId != null">
+        `parent_id` = #{parentId},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+      <if test="updateTime != null">
+        `update_time` = #{updateTime}
+      </if>
+    </set>
+    <where>
+      `id` = #{id}
+    </where>
+  </update>
+</mapper>

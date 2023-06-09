@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winfred.mall.customer.mapper.RolePermissionMapper">
+
+  <!-- 通用查询映射结果 -->
+  <resultMap id="BaseResultMap" type="com.winfred.mall.customer.entity.RolePermissionEntity">
+    <id column="id" property="id"/>
+    <result column="role_id" property="roleId"/>
+    <result column="permission_id" property="permissionId"/>
+    <result column="permission_strategy" property="permissionStrategy"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+  <!-- 通用查询结果列 -->
+  <sql id="Base_Column_List">
+    `id`,
+                `role_id`, 
+                `permission_id`, 
+                `permission_strategy`, 
+                `create_time`, 
+                `update_time`
+  </sql>
+
+  <select id="queryList" resultMap="BaseResultMap" parameterType="com.winfred.mall.customer.entity.RolePermissionEntity">
+    SELECT
+    `id`,
+    `role_id`,
+    `permission_id`,
+    `permission_strategy`,
+    `create_time`,
+    `update_time`
+    FROM `role_permission`
+    <where>
+      <if test="id != null and id != ''">
+        AND `id` = #{id}
+      </if>
+      <if test="roleId != null and roleId != ''">
+        AND `role_id` = #{roleId}
+      </if>
+      <if test="permissionId != null and permissionId != ''">
+        AND `permission_id` = #{permissionId}
+      </if>
+      <if test="permissionStrategy != null and permissionStrategy != ''">
+        AND `permission_strategy` = #{permissionStrategy}
+      </if>
+      <if test="createTime != null and createTime != ''">
+        AND `create_time` = #{createTime}
+      </if>
+      <if test="updateTime != null and updateTime != ''">
+        AND `update_time` = #{updateTime}
+      </if>
+    </where>
+    <if test="orders != null">
+      ORDER BY
+      <foreach collection="orders" item="order" open="" separator="," close="">
+        ${order.column} ${order.rule}
+      </foreach>
+    </if>
+    <if test="offset != null and size != null">
+      LIMIT ${offset}, ${size}
+    </if>
+  </select>
+
+  <select id="queryListCount" resultType="java.lang.Integer"
+          parameterType="com.winfred.mall.customer.entity.RolePermissionEntity">
+    SELECT
+    COUNT(1)
+    FROM `role_permission`
+    <where>
+      <if test="id != null and id != ''">
+        AND `id` = #{id}
+      </if>
+      <if test="roleId != null and roleId != ''">
+        AND `role_id` = #{roleId}
+      </if>
+      <if test="permissionId != null and permissionId != ''">
+        AND `permission_id` = #{permissionId}
+      </if>
+      <if test="permissionStrategy != null and permissionStrategy != ''">
+        AND `permission_strategy` = #{permissionStrategy}
+      </if>
+      <if test="createTime != null and createTime != ''">
+        AND `create_time` = #{createTime}
+      </if>
+      <if test="updateTime != null and updateTime != ''">
+        AND `update_time` = #{updateTime}
+      </if>
+    </where>
+  </select>
+
+  <insert id="addOne" parameterType="com.winfred.mall.customer.entity.RolePermissionEntity">
+    INSERT INTO `role_permission`
+    (`id`,
+     `role_id`,
+     `permission_id`,
+     `permission_strategy`,
+     `create_time`,
+     `update_time`)
+    VALUES (#{id},
+            #{roleId},
+            #{permissionId},
+            #{permissionStrategy},
+            #{createTime},
+            #{updateTime})
+  </insert>
+
+  <insert id="bulkUpsert" parameterType="java.util.List">
+    REPLACE INTO `role_permission`
+    (
+    `id`,
+    `role_id`,
+    `permission_id`,
+    `permission_strategy`,
+    `create_time`,
+    `update_time`
+    )
+    VALUES
+    <foreach collection="items" index="index" item="item" separator=",">
+      (
+      #{item.id},
+      #{item.roleId},
+      #{item.permissionId},
+      #{item.permissionStrategy},
+      #{item.createTime},
+      #{item.updateTime}
+      )
+    </foreach>
+  </insert>
+
+  <select id="queryByIds" resultMap="BaseResultMap" parameterType="java.util.List">
+    SELECT
+    `id`,
+    `role_id`,
+    `permission_id`,
+    `permission_strategy`,
+    `create_time`,
+    `update_time`
+    FROM `role_permission`
+    <where>
+      id IN
+      <foreach collection="items" item="item" open="(" separator="," close=")">#{item}
+      </foreach>
+    </where>
+  </select>
+
+  <update id="updateIfNotNullById" parameterType="com.winfred.mall.customer.entity.RolePermissionEntity">
+    UPDATE `role_permission`
+    <set>
+      <if test="roleId != null">
+        `role_id` = #{roleId},
+      </if>
+      <if test="permissionId != null">
+        `permission_id` = #{permissionId},
+      </if>
+      <if test="permissionStrategy != null">
+        `permission_strategy` = #{permissionStrategy},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+      <if test="updateTime != null">
+        `update_time` = #{updateTime}
+      </if>
+    </set>
+    <where>
+      `id` = #{id}
+    </where>
+  </update>
+</mapper>

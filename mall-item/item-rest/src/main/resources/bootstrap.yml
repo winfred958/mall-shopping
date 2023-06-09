@@ -1,0 +1,18 @@
+server:
+  port: 18083
+spring:
+  application:
+    name: mall-item
+  profiles:
+    active: ${ACTIVE_PROFILE:dev}
+  cloud:
+    nacos:
+      config:
+        namespace: 33c18b1f-56d4-4efc-820b-e34b6afd8f27
+        server-addr: "nacos.server.local.xyz:8848"
+        group: DEV_GROUP
+        file-extension: yaml
+      discovery:
+        namespace: 33c18b1f-56d4-4efc-820b-e34b6afd8f27
+        server-addr: "nacos.server.local.xyz:8848"
+        group: DEV_GROUP

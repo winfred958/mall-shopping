@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winfred.mall.customer.mapper.MenuMapper">
+
+  <!-- 通用查询映射结果 -->
+  <resultMap id="BaseResultMap" type="com.winfred.mall.customer.entity.MenuEntity">
+    <id column="id" property="id"/>
+    <result column="router_link" property="routerLink"/>
+    <result column="name" property="name"/>
+    <result column="sort_order" property="sortOrder"/>
+    <result column="parent_id" property="parentId"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+  <!-- 通用查询结果列 -->
+  <sql id="Base_Column_List">
+    `id`,
+                `router_link`, 
+                `name`, 
+                `sort_order`, 
+                `parent_id`, 
+                `create_time`, 
+                `update_time`
+  </sql>
+
+  <select id="queryList" resultMap="BaseResultMap" parameterType="com.winfred.mall.customer.entity.MenuEntity">
+    SELECT
+    `id`,
+    `router_link`,
+    `name`,
+    `sort_order`,
+    `parent_id`,
+    `create_time`,
+    `update_time`
+    FROM `menu`
+    <where>
+      <if test="id != null and id != ''">
+        AND `id` = #{id}
+      </if>
+      <if test="routerLink != null and routerLink != ''">
+        AND `router_link` = #{routerLink}
+      </if>
+      <if test="name != null and name != ''">
+        AND `name` = #{name}
+      </if>
+      <if test="sortOrder != null and sortOrder != ''">
+        AND `sort_order` = #{sortOrder}
+      </if>
+      <if test="parentId != null and parentId != ''">
+        AND `parent_id` = #{parentId}
+      </if>
+      <if test="createTime != null and createTime != ''">
+        AND `create_time` = #{createTime}
+      </if>
+      <if test="updateTime != null and updateTime != ''">
+        AND `update_time` = #{updateTime}
+      </if>
+    </where>
+    <if test="orders != null">
+      ORDER BY
+      <foreach collection="orders" item="order" open="" separator="," close="">
+        ${order.column} ${order.rule}
+      </foreach>
+    </if>
+    <if test="offset != null and size != null">
+      LIMIT ${offset}, ${size}
+    </if>
+  </select>
+
+  <select id="queryListCount" resultType="java.lang.Integer" parameterType="com.winfred.mall.customer.entity.MenuEntity">
+    SELECT
+    COUNT(1)
+    FROM `menu`
+    <where>
+      <if test="id != null and id != ''">
+        AND `id` = #{id}
+      </if>
+      <if test="routerLink != null and routerLink != ''">
+        AND `router_link` = #{routerLink}
+      </if>
+      <if test="name != null and name != ''">
+        AND `name` = #{name}
+      </if>
+      <if test="sortOrder != null and sortOrder != ''">
+        AND `sort_order` = #{sortOrder}
+      </if>
+      <if test="parentId != null and parentId != ''">
+        AND `parent_id` = #{parentId}
+      </if>
+      <if test="createTime != null and createTime != ''">
+        AND `create_time` = #{createTime}
+      </if>
+      <if test="updateTime != null and updateTime != ''">
+        AND `update_time` = #{updateTime}
+      </if>
+    </where>
+  </select>
+
+  <insert id="addOne" parameterType="com.winfred.mall.customer.entity.MenuEntity">
+    INSERT INTO `menu`
+    (`id`,
+     `router_link`,
+     `name`,
+     `sort_order`,
+     `parent_id`,
+     `create_time`,
+     `update_time`)
+    VALUES (#{id},
+            #{routerLink},
+            #{name},
+            #{sortOrder},
+            #{parentId},
+            #{createTime},
+            #{updateTime})
+  </insert>
+
+  <insert id="bulkUpsert" parameterType="java.util.List">
+    REPLACE INTO `menu`
+    (
+    `id`,
+    `router_link`,
+    `name`,
+    `sort_order`,
+    `parent_id`,
+    `create_time`,
+    `update_time`
+    )
+    VALUES
+    <foreach collection="items" index="index" item="item" separator=",">
+      (
+      #{item.id},
+      #{item.routerLink},
+      #{item.name},
+      #{item.sortOrder},
+      #{item.parentId},
+      #{item.createTime},
+      #{item.updateTime}
+      )
+    </foreach>
+  </insert>
+
+  <select id="queryByIds" resultMap="BaseResultMap" parameterType="java.util.List">
+    SELECT
+    `id`,
+    `router_link`,
+    `name`,
+    `sort_order`,
+    `parent_id`,
+    `create_time`,
+    `update_time`
+    FROM `menu`
+    <where>
+      id IN
+      <foreach collection="items" item="item" open="(" separator="," close=")">#{item}
+      </foreach>
+    </where>
+  </select>
+
+  <update id="updateIfNotNullById" parameterType="com.winfred.mall.customer.entity.MenuEntity">
+    UPDATE `menu`
+    <set>
+      <if test="routerLink != null">
+        `router_link` = #{routerLink},
+      </if>
+      <if test="name != null">
+        `name` = #{name},
+      </if>
+      <if test="sortOrder != null">
+        `sort_order` = #{sortOrder},
+      </if>
+      <if test="parentId != null">
+        `parent_id` = #{parentId},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+      <if test="updateTime != null">
+        `update_time` = #{updateTime}
+      </if>
+    </set>
+    <where>
+      `id` = #{id}
+    </where>
+  </update>
+</mapper>

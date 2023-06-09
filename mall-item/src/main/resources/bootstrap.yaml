@@ -1,0 +1,15 @@
+server:
+  port: 18083
+spring:
+  application:
+    name: item
+  cloud:
+    nacos:
+      config:
+        namespace: DEV
+        server-addr: "nacos.server.local.xyz:8848"
+        group: base
+        file-extension: yaml
+        max-retry: 5
+      discovery:
+        server-addr: "nacos.server.local.xyz:8848"

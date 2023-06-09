@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winfred.mall.customer.mapper.UserGroupMapper">
+
+  <!-- 通用查询映射结果 -->
+  <resultMap id="BaseResultMap" type="com.winfred.mall.customer.entity.UserGroupEntity">
+    <id column="id" property="id"/>
+    <result column="user_id" property="userId"/>
+    <result column="group_id" property="groupId"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+  <!-- 通用查询结果列 -->
+  <sql id="Base_Column_List">
+    `id`,
+                `user_id`, 
+                `group_id`, 
+                `create_time`, 
+                `update_time`
+  </sql>
+
+  <select id="queryList" resultMap="BaseResultMap" parameterType="com.winfred.mall.customer.entity.UserGroupEntity">
+    SELECT
+    `id`,
+    `user_id`,
+    `group_id`,
+    `create_time`,
+    `update_time`
+    FROM `user_group`
+    <where>
+      <if test="id != null and id != ''">
+        AND `id` = #{id}
+      </if>
+      <if test="userId != null and userId != ''">
+        AND `user_id` = #{userId}
+      </if>
+      <if test="groupId != null and groupId != ''">
+        AND `group_id` = #{groupId}
+      </if>
+      <if test="createTime != null and createTime != ''">
+        AND `create_time` = #{createTime}
+      </if>
+      <if test="updateTime != null and updateTime != ''">
+        AND `update_time` = #{updateTime}
+      </if>
+    </where>
+    <if test="orders != null">
+      ORDER BY
+      <foreach collection="orders" item="order" open="" separator="," close="">
+        ${order.column} ${order.rule}
+      </foreach>
+    </if>
+    <if test="offset != null and size != null">
+      LIMIT ${offset}, ${size}
+    </if>
+  </select>
+
+  <select id="queryListCount" resultType="java.lang.Integer"
+          parameterType="com.winfred.mall.customer.entity.UserGroupEntity">
+    SELECT
+    COUNT(1)
+    FROM `user_group`
+    <where>
+      <if test="id != null and id != ''">
+        AND `id` = #{id}
+      </if>
+      <if test="userId != null and userId != ''">
+        AND `user_id` = #{userId}
+      </if>
+      <if test="groupId != null and groupId != ''">
+        AND `group_id` = #{groupId}
+      </if>
+      <if test="createTime != null and createTime != ''">
+        AND `create_time` = #{createTime}
+      </if>
+      <if test="updateTime != null and updateTime != ''">
+        AND `update_time` = #{updateTime}
+      </if>
+    </where>
+  </select>
+
+  <insert id="addOne" parameterType="com.winfred.mall.customer.entity.UserGroupEntity">
+    INSERT INTO `user_group`
+    (`id`,
+     `user_id`,
+     `group_id`,
+     `create_time`,
+     `update_time`)
+    VALUES (#{id},
+            #{userId},
+            #{groupId},
+            #{createTime},
+            #{updateTime})
+  </insert>
+
+  <insert id="bulkUpsert" parameterType="java.util.List">
+    REPLACE INTO `user_group`
+    (
+    `id`,
+    `user_id`,
+    `group_id`,
+    `create_time`,
+    `update_time`
+    )
+    VALUES
+    <foreach collection="items" index="index" item="item" separator=",">
+      (
+      #{item.id},
+      #{item.userId},
+      #{item.groupId},
+      #{item.createTime},
+      #{item.updateTime}
+      )
+    </foreach>
+  </insert>
+
+  <select id="queryByIds" resultMap="BaseResultMap" parameterType="java.util.List">
+    SELECT
+    `id`,
+    `user_id`,
+    `group_id`,
+    `create_time`,
+    `update_time`
+    FROM `user_group`
+    <where>
+      id IN
+      <foreach collection="items" item="item" open="(" separator="," close=")">#{item}
+      </foreach>
+    </where>
+  </select>
+
+  <update id="updateIfNotNullById" parameterType="com.winfred.mall.customer.entity.UserGroupEntity">
+    UPDATE `user_group`
+    <set>
+      <if test="userId != null">
+        `user_id` = #{userId},
+      </if>
+      <if test="groupId != null">
+        `group_id` = #{groupId},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+      <if test="updateTime != null">
+        `update_time` = #{updateTime}
+      </if>
+    </set>
+    <where>
+      `id` = #{id}
+    </where>
+  </update>
+</mapper>

@@ -1,0 +1,53 @@
+server:
+  port: 18080
+
+spring:
+  application:
+    name: mall-customer
+  profiles:
+    active: dev
+  jackson:
+    default-property-inclusion: non_empty
+  webflux:
+    base-path: /mall-customer
+  cloud:
+    nacos:
+      config:
+        namespace: 33c18b1f-56d4-4efc-820b-e34b6afd8f27
+        server-addr: "nacos.server.local.xyz:8848"
+        group: DEV_GROUP
+        file-extension: yaml
+      discovery:
+        namespace: 33c18b1f-56d4-4efc-820b-e34b6afd8f27
+        server-addr: "nacos.server.local.xyz:8848"
+        group: DEV_GROUP
+
+system:
+  logging:
+    file: /data/log/${spring.application.name}/${spring.application.name}.log
+    format: "[%date{yyyy-MM-dd HH:mm:ss.SSS}{GMT+8}] [%-5level] [%X{trace_id}] [%class{0}:%method:%line] [%t] [-[%msg]-] %n"
+
+logging:
+  file:
+    max-size: 500MB
+    max-history: 7
+    name: ${system.logging.file}
+  pattern:
+    file: ${system.logging.format}
+
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: [ "health", "info" ]
+      cros:
+        allowed-methods: GET,POST
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+    info:
+      enabled: true
