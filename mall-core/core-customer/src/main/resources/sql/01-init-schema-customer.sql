@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS `ec_customer`;
-CREATE DATABASE IF NOT EXISTS `ec_customer` CHARACTER SET 'utf8mb4';
+DROP DATABASE IF EXISTS `mall_customer`;
+CREATE DATABASE IF NOT EXISTS `mall_customer` CHARACTER SET 'utf8mb4';
 
 -- 注册用户
-CREATE TABLE IF NOT EXISTS `ec_customer`.`user_info`
+CREATE TABLE IF NOT EXISTS `mall_customer`.`user_info`
 (
     `id`               BIGINT(20)   NOT NULL AUTO_INCREMENT COMMENT '自增, 无意义',
     `user_display_id`  VARCHAR(128) COMMENT '用户id, hash()',
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `ec_customer`.`user_info`
 
 
 -- 第三方登录
-CREATE TABLE IF NOT EXISTS `ec_customer`.`user_third_party`
+CREATE TABLE IF NOT EXISTS `mall_customer`.`user_third_party`
 (
     `open_id`          VARCHAR(200) NOT NULL COMMENT 'open_id',
     `platform`         VARCHAR(200) NOT NULL COMMENT '平台, WX, ZFB',
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `ec_customer`.`user_third_party`
   COLLATE = utf8mb4_general_ci COMMENT ='用户信息';
 
 
-CREATE TABLE IF NOT EXISTS `ec_customer`.`group_info`
+CREATE TABLE IF NOT EXISTS `mall_customer`.`group_info`
 (
     `id`          INT(11)      NOT NULL AUTO_INCREMENT,
     `group_name`  VARCHAR(200) NOT NULL COMMENT '组名',
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `ec_customer`.`group_info`
   COLLATE = utf8mb4_general_ci COMMENT ='用户组信息';
 
 
-CREATE TABLE IF NOT EXISTS `ec_customer`.`user_group`
+CREATE TABLE IF NOT EXISTS `mall_customer`.`user_group`
 (
     `id`          BIGINT(20) NOT NULL AUTO_INCREMENT,
     `user_id`     BIGINT(20) NOT NULL COMMENT '用户id',
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `ec_customer`.`user_group`
   COLLATE = utf8mb4_general_ci COMMENT ='用户所属组关系';
 
 
-CREATE TABLE IF NOT EXISTS `ec_customer`.`role_info`
+CREATE TABLE IF NOT EXISTS `mall_customer`.`role_info`
 (
     `id`            INT(11)      NOT NULL AUTO_INCREMENT,
     `role_name`     VARCHAR(200) NOT NULL COMMENT '角色名',
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `ec_customer`.`role_info`
   COLLATE = utf8mb4_general_ci COMMENT ='角色表';
 
 
-CREATE TABLE IF NOT EXISTS `ec_customer`.`group_role`
+CREATE TABLE IF NOT EXISTS `mall_customer`.`group_role`
 (
     `id`          BIGINT(20) NOT NULL AUTO_INCREMENT,
     `group_id`    INT(11)    NOT NULL COMMENT '用户id',
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `ec_customer`.`group_role`
   COLLATE = utf8mb4_general_ci COMMENT ='用户组与角色关系(group通用role)';
 
 
-CREATE TABLE IF NOT EXISTS `ec_customer`.`user_role`
+CREATE TABLE IF NOT EXISTS `mall_customer`.`user_role`
 (
     `id`          BIGINT(20) NOT NULL AUTO_INCREMENT,
     `user_id`     BIGINT(20) NOT NULL COMMENT '用户id',
@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `ec_customer`.`user_role`
   COLLATE = utf8mb4_general_ci COMMENT ='用户与角色关系(user独立分配的role)';
 
 
-CREATE TABLE IF NOT EXISTS `ec_customer`.`permission_info`
+CREATE TABLE IF NOT EXISTS `mall_customer`.`permission_info`
 (
     `id`             INT(11)      NOT NULL AUTO_INCREMENT,
     `permission_key` VARCHAR(128) NOT NULL COMMENT '权限key',
@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `ec_customer`.`permission_info`
   COLLATE = utf8mb4_general_ci COMMENT ='权限信息';
 
 
-CREATE TABLE IF NOT EXISTS `ec_customer`.`role_permission`
+CREATE TABLE IF NOT EXISTS `mall_customer`.`role_permission`
 (
     `id`                  BIGINT(20)  NOT NULL AUTO_INCREMENT,
     `role_id`             INT(11)     NOT NULL COMMENT '角色id',
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `ec_customer`.`role_permission`
   COLLATE = utf8mb4_general_ci COMMENT ='角色&权限关系';
 
 
-CREATE TABLE IF NOT EXISTS `ec_customer`.`menu`
+CREATE TABLE IF NOT EXISTS `mall_customer`.`menu`
 (
     `id`          INT(11)      NOT NULL AUTO_INCREMENT,
     `router_link` VARCHAR(200) NOT NULL DEFAULT '' COMMENT 'router-link.to 的值, 跟路由为 /, 这里配置全路径',
@@ -166,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `ec_customer`.`menu`
   COLLATE = utf8mb4_general_ci COMMENT ='角色&权限关系';
 
 
-CREATE TABLE IF NOT EXISTS `ec_customer`.`pre_menu`
+CREATE TABLE IF NOT EXISTS `mall_customer`.`pre_menu`
 (
     `id`            BIGINT(20) NOT NULL AUTO_INCREMENT,
     `permission_id` INT(11)    NOT NULL COMMENT '权限id',
@@ -181,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `ec_customer`.`pre_menu`
   COLLATE = utf8mb4_general_ci COMMENT ='角色&权限关系';
 
 
-INSERT INTO `ec_customer`.`role_info` (role_name, role_describe)
+INSERT INTO `mall_customer`.`role_info` (role_name, role_describe)
 VALUES ('SYS_ADMIN', '系统管理'),
        ('SYS_ADMIN_READ_ONLY', '系统管理'),
        ('CUSTOMER', '客户'),
@@ -196,7 +196,7 @@ VALUES ('SYS_ADMIN', '系统管理'),
        ('ANONYMOUS', '访客')
 ;
 
-INSERT INTO `ec_customer`.`permission_info` (permission_key, `describe`)
+INSERT INTO `mall_customer`.`permission_info` (permission_key, `describe`)
 VALUES ('SYS_ADMIN', '系统管理'),
        ('SYS_ADMIN_READ_ONLY', '系统管理'),
        ('CUSTOMER', '客户'),

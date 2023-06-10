@@ -10,22 +10,13 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
-import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
 import java.security.KeyPair;
@@ -39,28 +30,7 @@ import java.util.UUID;
  */
 @Configuration
 @EnableWebSecurity
-public class OAuth2AuthorizationServerSecurityConfiguration {
-
-  @Bean
-  @Order(1)
-  public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
-    OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
-    return http.formLogin(Customizer.withDefaults()).build();
-  }
-
-  @Bean
-  @Order(2)
-  public SecurityFilterChain standardSecurityFilterChain(HttpSecurity http) throws Exception {
-    // @formatter:off
-    http
-        .authorizeHttpRequests((authorize) -> authorize
-            .anyRequest().authenticated()
-        )
-        .formLogin(Customizer.withDefaults());
-    // @formatter:on
-
-    return http.build();
-  }
+public class AuthorizationServerSecurityConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
@@ -97,18 +67,8 @@ public class OAuth2AuthorizationServerSecurityConfiguration {
   public ProviderSettings providerSettings() {
     return ProviderSettings
         .builder()
-        .issuer("http://localhost:9000")
+        .issuer("http://oauth2.local.xyz:9000")
         .build();
-  }
-
-  @Bean
-  public UserDetailsService userDetailsService() {
-    UserDetails userDetails = User.withDefaultPasswordEncoder()
-        .username("admin")
-        .password("123456")
-        .roles("USER")
-        .build();
-    return new InMemoryUserDetailsManager(userDetails);
   }
 
   @Bean

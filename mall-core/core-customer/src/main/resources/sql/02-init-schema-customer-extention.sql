@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `ec_customer`.`user_address`
+CREATE TABLE IF NOT EXISTS `mall_customer`.`user_address`
 (
     `id`               BIGINT(20)   NOT NULL AUTO_INCREMENT,
     `user_id`          BIGINT(20)   NOT NULL COMMENT '用户id',

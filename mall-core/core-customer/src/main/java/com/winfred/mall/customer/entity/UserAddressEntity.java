@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("ec_customer.user_address")
+@TableName("mall_customer.user_address")
 public class UserAddressEntity extends BasePageRequest {
 
   private static final long serialVersionUID = 1L;

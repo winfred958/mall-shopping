@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("ec_customer.menu")
+@TableName("mall_customer.menu")
 public class MenuEntity extends BasePageRequest {
 
   private static final long serialVersionUID = 1L;

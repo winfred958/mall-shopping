@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("ec_customer.user_third_party")
+@TableName("mall_customer.user_third_party")
 public class UserThirdPartyEntity extends BasePageRequest {
 
   private static final long serialVersionUID = 1L;

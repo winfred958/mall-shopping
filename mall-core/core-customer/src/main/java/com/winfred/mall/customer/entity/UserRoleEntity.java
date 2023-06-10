@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("ec_customer.user_role")
+@TableName("mall_customer.user_role")
 public class UserRoleEntity extends BasePageRequest {
 
   private static final long serialVersionUID = 1L;

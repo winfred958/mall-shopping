@@ -9,14 +9,14 @@ spring:
     nacos:
       discovery:
         enabled: true
-        server-addr: 10.101.110.111:8848
+        server-addr: nacos.server.local.xyz:8848
         namespace: 5beca46a-fefe-4d03-9685-19f98ff2a121
       config:
         enabled: true
-        server-addr: 10.101.110.111:8848
+        server-addr: nacos.server.local.xyz:8848
         namespace: 5beca46a-fefe-4d03-9685-19f98ff2a121
 
 shenyu:
   sync:
     websocket:
-      urls: ws://10.101.110.111:9095/websocket  # shenyu-admin 地址
+      urls: ws://shenyua-dmin.server.local.xyz:9095/websocket  # shenyu-admin 地址

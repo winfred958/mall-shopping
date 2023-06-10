@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
+ * 实现内部 sso 用户名密码登录
+ *
  * @author winfred958
  */
 @Slf4j

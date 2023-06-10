@@ -1,8 +1,8 @@
 CREATE
-    DATABASE IF NOT EXISTS `ec_order` CHARACTER SET 'utf8mb4';
+    DATABASE IF NOT EXISTS `mall_order` CHARACTER SET 'utf8mb4';
 
 
-CREATE TABLE IF NOT EXISTS `ec_order`.`order_info`
+CREATE TABLE IF NOT EXISTS `mall_order`.`order_info`
 (
     `id`
                        BIGINT
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `ec_order`.`order_info`
 
 
 #
-CREATE TABLE IF NOT EXISTS `ec_order`.`order_item`
+CREATE TABLE IF NOT EXISTS `mall_order`.`order_item`
     #
 (
     # id int
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `ec_order`.`order_item`
 #;
 #
 #
-CREATE TABLE IF NOT EXISTS `ec_order`.`order_shipping`
+CREATE TABLE IF NOT EXISTS `mall_order`.`order_shipping`
     #
 (
     # id int

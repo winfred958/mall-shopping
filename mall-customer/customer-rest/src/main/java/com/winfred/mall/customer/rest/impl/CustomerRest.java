@@ -23,7 +23,6 @@ public class CustomerRest implements CustomerApi {
     this.customerService = customerService;
   }
 
-  @PermitAll
   @Override
   public Mono<UserDetails> getUserDetails(String username) {
     UserDetails userDetails = customerService.getUserDetails(username);

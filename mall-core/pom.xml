@@ -16,6 +16,7 @@
     <module>core-payment</module>
     <module>core-order</module>
     <module>core-warehouse</module>
+    <module>core-security</module>
   </modules>
 
   <artifactId>mall-core</artifactId>
