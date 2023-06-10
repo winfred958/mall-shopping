@@ -1,4 +1,4 @@
-FROM mysql:5.7.41
+FROM mysql:5.7.42
 COPY ../nacos/mysql-schema.sql /docker-entrypoint-initdb.d/nacos-mysql.sql
 RUN chown -R mysql:mysql /docker-entrypoint-initdb.d/nacos-mysql.sql
 EXPOSE 3306
