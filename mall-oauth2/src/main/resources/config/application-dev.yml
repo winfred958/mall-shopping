@@ -5,12 +5,12 @@ spring:
   cloud:
     nacos:
       config:
-        namespace: 33c18b1f-56d4-4efc-820b-e34b6afd8f27
+        namespace: 2f68ef27-24f3-4331-96a0-a4a271b07b55
         server-addr: "nacos.server.local.xyz:8848"
         group: DEV_GROUP
         file-extension: yaml
       discovery:
-        namespace: 33c18b1f-56d4-4efc-820b-e34b6afd8f27
+        namespace: 2f68ef27-24f3-4331-96a0-a4a271b07b55
         server-addr: "nacos.server.local.xyz:8848"
         group: DEV_GROUP
   jdbc:
@@ -30,3 +30,5 @@ spring.datasource.hikari.idle-timeout: 300000
 spring.datasource.hikari.max-lifetime: 1200000
 spring.datasource.hikari.auto-commit: true
 spring.datasource.hikari.connection-test-query: "SELECT 1"
+
+logging.level.org.springframework.security: TRACE

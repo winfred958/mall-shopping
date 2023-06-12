@@ -19,6 +19,7 @@ public class MallUserDetailsServiceImpl implements MallUserDetailsService {
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
     // TODO: 从远程, mall-customer 服务获取
+
     return null;
   }
 }

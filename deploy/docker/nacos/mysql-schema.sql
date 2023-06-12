@@ -16,6 +16,7 @@
 
 CREATE DATABASE IF NOT EXISTS `nacos` CHARACTER SET 'utf8mb4';
 
+USE nacos;
 /******************************************/
 /*   数据库全名 = nacos_config   */
 /*   表名称 = config_info   */

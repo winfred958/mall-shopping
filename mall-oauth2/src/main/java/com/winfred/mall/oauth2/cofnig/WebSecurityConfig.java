@@ -21,8 +21,8 @@ public class WebSecurityConfig {
    */
   @Bean
   SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-    http.authorizeRequests(authorizeRequests -> authorizeRequests.antMatchers("/token/*")
-            .permitAll()// 开放自定义的部分端点
+    http.authorizeRequests(authorizeRequests -> authorizeRequests
+            .antMatchers("/token/*", "/oauth2/*").permitAll()// 开放自定义的部分端点
             .anyRequest()
             .authenticated())
         .headers().frameOptions().sameOrigin();// 避免iframe同源无法登录

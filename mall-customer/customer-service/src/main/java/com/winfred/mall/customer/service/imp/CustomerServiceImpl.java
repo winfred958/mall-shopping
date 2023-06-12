@@ -3,9 +3,9 @@ package com.winfred.mall.customer.service.imp;
 import com.winfred.mall.customer.repository.CustomerRepository;
 import com.winfred.mall.customer.repository.CustomerRepositoryFactory;
 import com.winfred.mall.customer.service.CustomerService;
+import com.winfred.mall.security.entity.MallUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService {
   }
 
   @Override
-  public UserDetails getUserDetails(String username) {
+  public MallUser getUserDetails(String username) {
     CustomerRepository customerRepository = customerRepositoryFactory.getCustomerRepository();
     return customerRepository.getUserDetails(username);
   }

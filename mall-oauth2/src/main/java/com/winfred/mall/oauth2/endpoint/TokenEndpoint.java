@@ -11,6 +11,13 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/token")
 public interface TokenEndpoint {
 
+  /**
+   * 登录页
+   *
+   * @param modelAndView
+   * @param error
+   * @return
+   */
   @GetMapping("/login")
   ModelAndView require(ModelAndView modelAndView, @RequestParam(required = false) String error);
 

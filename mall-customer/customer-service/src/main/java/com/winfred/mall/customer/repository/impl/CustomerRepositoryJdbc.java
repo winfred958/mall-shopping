@@ -3,14 +3,21 @@ package com.winfred.mall.customer.repository.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.winfred.mall.customer.entity.RoleInfoEntity;
 import com.winfred.mall.customer.entity.UserInfoEntity;
+import com.winfred.mall.customer.entity.UserRoleEntity;
 import com.winfred.mall.customer.repository.CustomerRepository;
+import com.winfred.mall.customer.service.IRoleInfoService;
 import com.winfred.mall.customer.service.IUserInfoService;
+import com.winfred.mall.customer.service.IUserRoleService;
+import com.winfred.mall.security.entity.MallUser;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author winfred958
@@ -24,40 +31,64 @@ public class CustomerRepositoryJdbc implements CustomerRepository {
   }
 
   @Override
-  public UserDetails getUserDetails(String username) {
-    IUserInfoService userInfoService = applicationContext.getBean(IUserInfoService.class);
-    QueryWrapper<UserInfoEntity> queryWrapper = new QueryWrapper<>();
+  public MallUser getUserDetails(String username) {
+    final IUserInfoService userInfoService = applicationContext.getBean(IUserInfoService.class);
+    final QueryWrapper<UserInfoEntity> queryWrapper = new QueryWrapper<>();
     queryWrapper
         .eq(UserInfoEntity.USER_NAME, username)
         .last("LIMIT 1");
-    UserInfoEntity userInfo = userInfoService.getOne(queryWrapper);
+    final UserInfoEntity userInfo = userInfoService.getOne(queryWrapper);
     if (null == userInfo) {
-      User.UserBuilder userBuilder = User.withUsername(username)
-          .username(username)
-          .password("")
-          .accountExpired(true)
-          .accountLocked(true)
-          .authorities(new ArrayList<>())
-          .disabled(true);
-      return userBuilder.build();
+      // 用户不存在
+      return buildAnonymousUser(username);
     }
-    Long userId = userInfo.getId();
-    Collection<RoleInfoEntity> userRoles = getUserRoles(userId);
-    User.UserBuilder userBuilder = User.withUsername(username)
+    final Long userId = userInfo.getId();
+    final Collection<RoleInfoEntity> userRoles = getUserRoles(userId);
+    final User.UserBuilder userBuilder = User.withUsername(username)
         .password(userInfo.getPassword())
         .accountExpired(false)
         .accountLocked(false)
         .disabled(false);
-    String[] roles = userRoles
+    final String[] roles = userRoles
         .stream()
         .map(RoleInfoEntity::getRoleName)
         .toArray(String[]::new);
     userBuilder.roles(roles);
-    return userBuilder.build();
+    MallUser mallUser = MallUser.withUser(userBuilder.build());
+    mallUser.setUserId(userId);
+    // TODO: mallUser groupId
+    return mallUser;
+  }
+
+  private MallUser buildAnonymousUser(final String username) {
+    final User.UserBuilder userBuilder = User.withUsername(username)
+        .username(username)
+        .password("")
+        .accountExpired(true)
+        .accountLocked(true)
+        .authorities(new ArrayList<>())
+        .disabled(true);
+    final UserDetails userDetails = userBuilder.build();
+    return MallUser.withUser(userDetails);
   }
 
   private Collection<RoleInfoEntity> getUserRoles(Long userId) {
-    return new ArrayList<>();
+    IUserRoleService userRoleService = applicationContext.getBean(IUserRoleService.class);
+    QueryWrapper<UserRoleEntity> queryWrapper = new QueryWrapper<>();
+    queryWrapper.eq(UserRoleEntity.USER_ID, userId);
+    List<UserRoleEntity> userRoleEntities = userRoleService.list(queryWrapper);
+    Set<Integer> roleIds = userRoleEntities
+        .stream()
+        .map(UserRoleEntity::getRoleId)
+        .collect(Collectors.toSet());
+    return getUserRoles(roleIds);
+  }
+
+  private Collection<RoleInfoEntity> getUserRoles(final Set<Integer> roleIds) {
+    IRoleInfoService roleInfoService = applicationContext.getBean(IRoleInfoService.class);
+    QueryWrapper<RoleInfoEntity> queryWrapper = new QueryWrapper<>();
+    queryWrapper.in(RoleInfoEntity.ID, roleIds);
+    return roleInfoService.list(queryWrapper);
   }
 
   @Override
