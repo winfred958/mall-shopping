@@ -18,6 +18,8 @@ import java.util.*;
  */
 public abstract class AbstractAuth2BaseAuthenticationToken extends AbstractAuthenticationToken {
 
+  private static final long serialVersionUID = -1836148487179340083L;
+
   @Getter
   private final AuthorizationGrantType authorizationGrantType;
 

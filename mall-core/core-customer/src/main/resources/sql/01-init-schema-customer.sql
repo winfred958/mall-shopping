@@ -1,11 +1,10 @@
-DROP DATABASE IF EXISTS `mall_customer`;
+# DROP DATABASE IF EXISTS `mall_customer`;
 CREATE DATABASE IF NOT EXISTS `mall_customer` CHARACTER SET 'utf8mb4';
 
 -- 注册用户
 CREATE TABLE IF NOT EXISTS `mall_customer`.`user_info`
 (
     `id`               BIGINT(20)   NOT NULL AUTO_INCREMENT COMMENT '自增, 无意义',
-    `user_display_id`  VARCHAR(128) COMMENT '用户id, hash()',
     `display_name`     VARCHAR(200) NOT NULL COMMENT '昵称',
     `user_name`        VARCHAR(200) COMMENT '用户名',
     `email`            VARCHAR(200) COMMENT 'email',

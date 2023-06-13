@@ -11,8 +11,8 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 @SpringBootApplication(
     scanBasePackages = {
         "com.winfred.mall.customer.config",
-        "com.winfred.mall.customer.repository",
         "com.winfred.mall.customer.service",
+        "com.winfred.mall.customer.repository",
         "com.winfred.mall.customer.rest",
     },
     exclude = {

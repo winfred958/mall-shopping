@@ -5,7 +5,6 @@
   <!-- 通用查询映射结果 -->
   <resultMap id="BaseResultMap" type="com.winfred.mall.customer.entity.UserInfoEntity">
     <id column="id" property="id"/>
-    <result column="user_display_id" property="userDisplayId"/>
     <result column="display_name" property="displayName"/>
     <result column="user_name" property="userName"/>
     <result column="email" property="email"/>
@@ -21,8 +20,7 @@
   <!-- 通用查询结果列 -->
   <sql id="Base_Column_List">
     `id`,
-                `user_display_id`, 
-                `display_name`, 
+                `display_name`,
                 `user_name`, 
                 `email`, 
                 `phone_num`, 
@@ -37,7 +35,6 @@
   <select id="queryList" resultMap="BaseResultMap" parameterType="com.winfred.mall.customer.entity.UserInfoEntity">
     SELECT
     `id`,
-    `user_display_id`,
     `display_name`,
     `user_name`,
     `email`,
@@ -52,9 +49,6 @@
     <where>
       <if test="id != null and id != ''">
         AND `id` = #{id}
-      </if>
-      <if test="userDisplayId != null and userDisplayId != ''">
-        AND `user_display_id` = #{userDisplayId}
       </if>
       <if test="displayName != null and displayName != ''">
         AND `display_name` = #{displayName}
@@ -107,9 +101,6 @@
       <if test="id != null and id != ''">
         AND `id` = #{id}
       </if>
-      <if test="userDisplayId != null and userDisplayId != ''">
-        AND `user_display_id` = #{userDisplayId}
-      </if>
       <if test="displayName != null and displayName != ''">
         AND `display_name` = #{displayName}
       </if>
@@ -146,7 +137,6 @@
   <insert id="addOne" parameterType="com.winfred.mall.customer.entity.UserInfoEntity">
     INSERT INTO `user_info`
     (`id`,
-     `user_display_id`,
      `display_name`,
      `user_name`,
      `email`,
@@ -175,7 +165,6 @@
     REPLACE INTO `user_info`
     (
     `id`,
-    `user_display_id`,
     `display_name`,
     `user_name`,
     `email`,
@@ -191,7 +180,6 @@
     <foreach collection="items" index="index" item="item" separator=",">
       (
       #{item.id},
-      #{item.userDisplayId},
       #{item.displayName},
       #{item.userName},
       #{item.email},
@@ -209,7 +197,6 @@
   <select id="queryByIds" resultMap="BaseResultMap" parameterType="java.util.List">
     SELECT
     `id`,
-    `user_display_id`,
     `display_name`,
     `user_name`,
     `email`,
@@ -231,9 +218,6 @@
   <update id="updateIfNotNullById" parameterType="com.winfred.mall.customer.entity.UserInfoEntity">
     UPDATE `user_info`
     <set>
-      <if test="userDisplayId != null">
-        `user_display_id` = #{userDisplayId},
-      </if>
       <if test="displayName != null">
         `display_name` = #{displayName},
       </if>

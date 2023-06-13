@@ -1,6 +1,7 @@
 package com.winfred.mall.customer.repository.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.winfred.common.constant.MallConstant;
 import com.winfred.mall.customer.entity.RoleInfoEntity;
 import com.winfred.mall.customer.entity.UserInfoEntity;
 import com.winfred.mall.customer.entity.UserRoleEntity;
@@ -10,6 +11,8 @@ import com.winfred.mall.customer.service.IUserInfoService;
 import com.winfred.mall.customer.service.IUserRoleService;
 import com.winfred.mall.security.entity.MallUser;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -60,13 +63,23 @@ public class CustomerRepositoryJdbc implements CustomerRepository {
     return mallUser;
   }
 
+  /**
+   * 匿名用户
+   *
+   * @param username
+   * @return
+   */
   private MallUser buildAnonymousUser(final String username) {
+
+    List<GrantedAuthority> list = new ArrayList<>();
+    list.add(new SimpleGrantedAuthority(MallConstant.ROLE_ANONYMOUS));
+
     final User.UserBuilder userBuilder = User.withUsername(username)
         .username(username)
         .password("")
         .accountExpired(true)
         .accountLocked(true)
-        .authorities(new ArrayList<>())
+        .authorities(list)
         .disabled(true);
     final UserDetails userDetails = userBuilder.build();
     return MallUser.withUser(userDetails);

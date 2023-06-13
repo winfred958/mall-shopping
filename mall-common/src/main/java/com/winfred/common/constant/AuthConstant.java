@@ -1,5 +1,9 @@
 package com.winfred.common.constant;
 
+/**
+ * @author winfred958
+ */
+@Deprecated
 public enum AuthConstant {
   /**
    * token name

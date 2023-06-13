@@ -1,8 +1,6 @@
 package com.winfred.mall.security.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +15,6 @@ import java.util.Map;
  * @author winfred958
  */
 
-@Builder
 public class MallUser extends User implements OAuth2AuthenticatedPrincipal, Serializable {
 
   private static final long serialVersionUID = 6122327769250328426L;
@@ -43,7 +40,7 @@ public class MallUser extends User implements OAuth2AuthenticatedPrincipal, Seri
   }
 
   public MallUser(UserDetails user) {
-    super(user.getUsername(), user.getUsername(), user.isEnabled(), user.isAccountNonExpired(),
+    super(user.getUsername(), user.getPassword(), user.isEnabled(), user.isAccountNonExpired(),
         user.isCredentialsNonExpired(), user.isAccountNonLocked(),
         user.getAuthorities());
   }

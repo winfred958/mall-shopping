@@ -15,4 +15,33 @@
     <module>customer-service</module>
     <module>customer-rest</module>
   </modules>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>${spring-boot.version}</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <includeSystemScope>true</includeSystemScope>
+            <fork>true</fork>
+            <addResources>true</addResources>
+            <jvmArguments>-Xdebug
+              -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=7777
+            </jvmArguments>
+            <classifier>exec</classifier>
+            <finalName>${project.build.finalName}</finalName>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>

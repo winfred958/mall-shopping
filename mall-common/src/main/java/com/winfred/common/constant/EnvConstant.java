@@ -1,5 +1,8 @@
 package com.winfred.common.constant;
 
+/**
+ * @author winfred958
+ */
 public enum EnvConstant {
   /**
    * dev

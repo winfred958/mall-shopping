@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,11 +22,12 @@ public class CustomerRepositoryFactoryImpl implements CustomerRepositoryFactory 
 
   private static final Map<EnumStorageType, CustomerRepository> CUSTOMER_REPOSITORY_MAP = new HashMap<>();
 
-  private final ApplicationContext applicationContext;
-
+  @SuppressWarnings("all")
   @Autowired
-  public CustomerRepositoryFactoryImpl(ApplicationContext applicationContext) {
-    this.applicationContext = applicationContext;
+  private  ApplicationContext applicationContext;
+
+  @PostConstruct
+  public void initRepositoryFactory(){
     CUSTOMER_REPOSITORY_MAP.put(EnumStorageType.MySQL, new CustomerRepositoryJdbc(applicationContext));
   }
 

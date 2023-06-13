@@ -34,12 +34,6 @@ public class UserInfoEntity extends BasePageRequest {
   private Long id;
 
   /**
-   * 用户id, hash()
-   */
-  @TableField("user_display_id")
-  private String userDisplayId;
-
-  /**
    * 昵称
    */
   @TableField("display_name")
