@@ -47,7 +47,9 @@ public abstract class AbstractAuth2BaseAuthenticationToken extends AbstractAuthe
   }
 
   /**
-   * 获取凭证
+   * 凭证
+   * <p>
+   * 可以是密码或其他实现
    *
    * @return
    */
@@ -56,6 +58,11 @@ public abstract class AbstractAuth2BaseAuthenticationToken extends AbstractAuthe
     return this.authentication.getCredentials();
   }
 
+  /**
+   * 通常为用户名
+   *
+   * @return
+   */
   @Override
   public Object getPrincipal() {
     return this.authentication.getPrincipal();

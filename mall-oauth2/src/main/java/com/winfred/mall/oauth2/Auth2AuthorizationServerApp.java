@@ -8,10 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author winfred958
  */
 @SpringBootApplication
-public class OAuth2AuthorizationServerApp {
+public class Auth2AuthorizationServerApp {
 
   public static void main(String[] args) {
-    SpringApplication springApplication = new SpringApplication(OAuth2AuthorizationServerApp.class);
+    SpringApplication springApplication = new SpringApplication(Auth2AuthorizationServerApp.class);
     springApplication.run(args);
   }
 }

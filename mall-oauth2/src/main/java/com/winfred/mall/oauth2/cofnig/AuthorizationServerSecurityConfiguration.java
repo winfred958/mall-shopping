@@ -18,7 +18,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OAuth2AuthorizationEndpointConfigurer;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OAuth2AuthorizationServerConfigurer;
@@ -26,8 +25,6 @@ import org.springframework.security.config.annotation.web.configurers.oauth2.ser
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OAuth2TokenEndpointConfigurer;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
 import org.springframework.security.oauth2.server.authorization.web.authentication.*;
 import org.springframework.security.web.SecurityFilterChain;
@@ -45,7 +42,6 @@ import java.util.UUID;
  * @author winfred958
  */
 @Configuration
-@EnableWebSecurity
 public class AuthorizationServerSecurityConfiguration {
 
   @Bean
@@ -53,11 +49,6 @@ public class AuthorizationServerSecurityConfiguration {
   @ConditionalOnBean(DataSource.class)
   public JdbcTemplate buildJdbcTemplate(DataSource dataSource) {
     return new JdbcTemplate(dataSource);
-  }
-
-  @Bean
-  public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
-    return new JdbcRegisteredClientRepository(jdbcTemplate);
   }
 
   /**
@@ -77,9 +68,9 @@ public class AuthorizationServerSecurityConfiguration {
         .tokenEndpoint(new Customizer<OAuth2TokenEndpointConfigurer>() {
 
           @Override
-          public void customize(OAuth2TokenEndpointConfigurer oAuth2TokenEndpointConfigurer) {
+          public void customize(OAuth2TokenEndpointConfigurer auth2TokenEndpointConfigurer) {
             // 个性化认证授权端点
-            oAuth2TokenEndpointConfigurer
+            auth2TokenEndpointConfigurer
                 // 注入自定义的授权认证Converter
                 .accessTokenRequestConverter(accessTokenRequestConverter())
                 .accessTokenResponseHandler(new MallAuthenticationSuccessHandler())
@@ -105,7 +96,6 @@ public class AuthorizationServerSecurityConfiguration {
               }
             }
         );
-
 
 
     return httpSecurity.build();
@@ -142,7 +132,7 @@ public class AuthorizationServerSecurityConfiguration {
   public ProviderSettings providerSettings() {
     return ProviderSettings
         .builder()
-        .issuer("http://oauth2.local.xyz:9000")
+        .issuer("http://oauth2.local.xyz:9000/mall-oauth2")
         .build();
   }
 

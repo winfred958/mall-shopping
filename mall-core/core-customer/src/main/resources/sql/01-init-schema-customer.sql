@@ -190,8 +190,8 @@ VALUES ('SYS_ADMIN', '系统管理'),
        ('ITEM_READ_ONLY', '商品只读'),
        ('ORDER_ADMIN', '客户管理'),
        ('ORDER_READ_ONLY', '客户只读'),
-       ('MARKETING_ADMIN', '客户管理'),
-       ('MARKETING_READ_ONLY', '客户只读'),
+       ('MARKETING_ADMIN', '营销管理'),
+       ('MARKETING_READ_ONLY', '营销只读'),
        ('ANONYMOUS', '访客')
 ;
 
@@ -205,6 +205,6 @@ VALUES ('SYS_ADMIN', '系统管理'),
        ('ITEM_READ_ONLY', '商品只读'),
        ('ORDER_ADMIN', '客户管理'),
        ('ORDER_READ_ONLY', '客户只读'),
-       ('MARKETING_ADMIN', '客户管理'),
-       ('MARKETING_READ_ONLY', '客户只读')
+       ('MARKETING_ADMIN', '营销管理'),
+       ('MARKETING_READ_ONLY', '营销只读')
 ;

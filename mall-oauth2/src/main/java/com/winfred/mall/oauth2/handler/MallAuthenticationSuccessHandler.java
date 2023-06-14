@@ -20,5 +20,7 @@ public class MallAuthenticationSuccessHandler implements AuthenticationSuccessHa
 
     // 记录日志
     // 返回 token 并 重定向到指定页面
+
+    log.info("authentication success: {}", request);
   }
 }

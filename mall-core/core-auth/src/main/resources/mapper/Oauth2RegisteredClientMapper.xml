@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winfred.mall.oauth2.mapper.Oauth2RegisteredClientMapper">
+
+        <!-- 通用查询映射结果 -->
+        <resultMap id="BaseResultMap" type="com.winfred.mall.oauth2.entity.Oauth2RegisteredClientEntity">
+                    <id column="id" property="id"/>
+                    <result column="client_id" property="clientId"/>
+                    <result column="client_id_issued_at" property="clientIdIssuedAt"/>
+                    <result column="client_secret" property="clientSecret"/>
+                    <result column="client_secret_expires_at" property="clientSecretExpiresAt"/>
+                    <result column="client_name" property="clientName"/>
+                    <result column="client_authentication_methods" property="clientAuthenticationMethods"/>
+                    <result column="authorization_grant_types" property="authorizationGrantTypes"/>
+                    <result column="redirect_uris" property="redirectUris"/>
+                    <result column="scopes" property="scopes"/>
+                    <result column="client_settings" property="clientSettings"/>
+                    <result column="token_settings" property="tokenSettings"/>
+        </resultMap>
+
+        <!-- 通用查询结果列 -->
+        <sql id="Base_Column_List">
+                `id`, 
+                `client_id`, 
+                `client_id_issued_at`, 
+                `client_secret`, 
+                `client_secret_expires_at`, 
+                `client_name`, 
+                `client_authentication_methods`, 
+                `authorization_grant_types`, 
+                `redirect_uris`, 
+                `scopes`, 
+                `client_settings`, 
+                `token_settings`
+        </sql>
+
+    <select id="queryList" resultMap="BaseResultMap" parameterType="com.winfred.mall.oauth2.entity.Oauth2RegisteredClientEntity">
+        SELECT
+            `id`, 
+            `client_id`, 
+            `client_id_issued_at`, 
+            `client_secret`, 
+            `client_secret_expires_at`, 
+            `client_name`, 
+            `client_authentication_methods`, 
+            `authorization_grant_types`, 
+            `redirect_uris`, 
+            `scopes`, 
+            `client_settings`, 
+            `token_settings`
+        FROM `oauth2_registered_client`
+        <where>
+                <if test="id != null and id != ''">
+                    AND `id` = #{id}
+                </if>
+                <if test="clientId != null and clientId != ''">
+                    AND `client_id` = #{clientId}
+                </if>
+                <if test="clientIdIssuedAt != null and clientIdIssuedAt != ''">
+                    AND `client_id_issued_at` = #{clientIdIssuedAt}
+                </if>
+                <if test="clientSecret != null and clientSecret != ''">
+                    AND `client_secret` = #{clientSecret}
+                </if>
+                <if test="clientSecretExpiresAt != null and clientSecretExpiresAt != ''">
+                    AND `client_secret_expires_at` = #{clientSecretExpiresAt}
+                </if>
+                <if test="clientName != null and clientName != ''">
+                    AND `client_name` = #{clientName}
+                </if>
+                <if test="clientAuthenticationMethods != null and clientAuthenticationMethods != ''">
+                    AND `client_authentication_methods` = #{clientAuthenticationMethods}
+                </if>
+                <if test="authorizationGrantTypes != null and authorizationGrantTypes != ''">
+                    AND `authorization_grant_types` = #{authorizationGrantTypes}
+                </if>
+                <if test="redirectUris != null and redirectUris != ''">
+                    AND `redirect_uris` = #{redirectUris}
+                </if>
+                <if test="scopes != null and scopes != ''">
+                    AND `scopes` = #{scopes}
+                </if>
+                <if test="clientSettings != null and clientSettings != ''">
+                    AND `client_settings` = #{clientSettings}
+                </if>
+                <if test="tokenSettings != null and tokenSettings != ''">
+                    AND `token_settings` = #{tokenSettings}
+                </if>
+        </where>
+        <if test="orders != null">
+            ORDER BY
+            <foreach collection="orders" item="order" open="" separator="," close="">
+                ${order.column} ${order.rule}
+            </foreach>
+        </if>
+        <if test="offset != null and size != null">
+            LIMIT ${offset}, ${size}
+        </if>
+    </select>
+
+    <select id="queryListCount" resultType="java.lang.Integer" parameterType="com.winfred.mall.oauth2.entity.Oauth2RegisteredClientEntity">
+        SELECT
+        COUNT(1)
+        FROM `oauth2_registered_client`
+        <where>
+                <if test="id != null and id != ''">
+                    AND `id` = #{id}
+                </if>
+                <if test="clientId != null and clientId != ''">
+                    AND `client_id` = #{clientId}
+                </if>
+                <if test="clientIdIssuedAt != null and clientIdIssuedAt != ''">
+                    AND `client_id_issued_at` = #{clientIdIssuedAt}
+                </if>
+                <if test="clientSecret != null and clientSecret != ''">
+                    AND `client_secret` = #{clientSecret}
+                </if>
+                <if test="clientSecretExpiresAt != null and clientSecretExpiresAt != ''">
+                    AND `client_secret_expires_at` = #{clientSecretExpiresAt}
+                </if>
+                <if test="clientName != null and clientName != ''">
+                    AND `client_name` = #{clientName}
+                </if>
+                <if test="clientAuthenticationMethods != null and clientAuthenticationMethods != ''">
+                    AND `client_authentication_methods` = #{clientAuthenticationMethods}
+                </if>
+                <if test="authorizationGrantTypes != null and authorizationGrantTypes != ''">
+                    AND `authorization_grant_types` = #{authorizationGrantTypes}
+                </if>
+                <if test="redirectUris != null and redirectUris != ''">
+                    AND `redirect_uris` = #{redirectUris}
+                </if>
+                <if test="scopes != null and scopes != ''">
+                    AND `scopes` = #{scopes}
+                </if>
+                <if test="clientSettings != null and clientSettings != ''">
+                    AND `client_settings` = #{clientSettings}
+                </if>
+                <if test="tokenSettings != null and tokenSettings != ''">
+                    AND `token_settings` = #{tokenSettings}
+                </if>
+        </where>
+    </select>
+
+    <insert id="addOne" parameterType="com.winfred.mall.oauth2.entity.Oauth2RegisteredClientEntity">
+        INSERT INTO `oauth2_registered_client`
+        (
+            `id`, 
+            `client_id`, 
+            `client_id_issued_at`, 
+            `client_secret`, 
+            `client_secret_expires_at`, 
+            `client_name`, 
+            `client_authentication_methods`, 
+            `authorization_grant_types`, 
+            `redirect_uris`, 
+            `scopes`, 
+            `client_settings`, 
+            `token_settings`
+        ) VALUES (
+            #{id}, 
+            #{clientId}, 
+            #{clientIdIssuedAt}, 
+            #{clientSecret}, 
+            #{clientSecretExpiresAt}, 
+            #{clientName}, 
+            #{clientAuthenticationMethods}, 
+            #{authorizationGrantTypes}, 
+            #{redirectUris}, 
+            #{scopes}, 
+            #{clientSettings}, 
+            #{tokenSettings}
+        )
+    </insert>
+
+    <insert id="bulkUpsert" parameterType="java.util.List">
+        REPLACE INTO `oauth2_registered_client`
+        (
+            `id`, 
+            `client_id`, 
+            `client_id_issued_at`, 
+            `client_secret`, 
+            `client_secret_expires_at`, 
+            `client_name`, 
+            `client_authentication_methods`, 
+            `authorization_grant_types`, 
+            `redirect_uris`, 
+            `scopes`, 
+            `client_settings`, 
+            `token_settings`
+        )
+        VALUES
+        <foreach collection="items" index="index" item="item" separator=",">
+            (
+                #{item.id}, 
+                #{item.clientId}, 
+                #{item.clientIdIssuedAt}, 
+                #{item.clientSecret}, 
+                #{item.clientSecretExpiresAt}, 
+                #{item.clientName}, 
+                #{item.clientAuthenticationMethods}, 
+                #{item.authorizationGrantTypes}, 
+                #{item.redirectUris}, 
+                #{item.scopes}, 
+                #{item.clientSettings}, 
+                #{item.tokenSettings}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryByIds" resultMap="BaseResultMap" parameterType="java.util.List">
+        SELECT
+            `id`, 
+            `client_id`, 
+            `client_id_issued_at`, 
+            `client_secret`, 
+            `client_secret_expires_at`, 
+            `client_name`, 
+            `client_authentication_methods`, 
+            `authorization_grant_types`, 
+            `redirect_uris`, 
+            `scopes`, 
+            `client_settings`, 
+            `token_settings`
+        FROM `oauth2_registered_client`
+        <where>
+                    id IN
+            <foreach collection="items" item="item" open="(" separator="," close=")">#{item}
+            </foreach>
+        </where>
+    </select>
+
+    <update id="updateIfNotNullById" parameterType="com.winfred.mall.oauth2.entity.Oauth2RegisteredClientEntity">
+        UPDATE `oauth2_registered_client`
+        <set>
+                    <if test="clientId != null">
+                        `client_id` = #{clientId}, 
+                    </if>
+                    <if test="clientIdIssuedAt != null">
+                        `client_id_issued_at` = #{clientIdIssuedAt}, 
+                    </if>
+                    <if test="clientSecret != null">
+                        `client_secret` = #{clientSecret}, 
+                    </if>
+                    <if test="clientSecretExpiresAt != null">
+                        `client_secret_expires_at` = #{clientSecretExpiresAt}, 
+                    </if>
+                    <if test="clientName != null">
+                        `client_name` = #{clientName}, 
+                    </if>
+                    <if test="clientAuthenticationMethods != null">
+                        `client_authentication_methods` = #{clientAuthenticationMethods}, 
+                    </if>
+                    <if test="authorizationGrantTypes != null">
+                        `authorization_grant_types` = #{authorizationGrantTypes}, 
+                    </if>
+                    <if test="redirectUris != null">
+                        `redirect_uris` = #{redirectUris}, 
+                    </if>
+                    <if test="scopes != null">
+                        `scopes` = #{scopes}, 
+                    </if>
+                    <if test="clientSettings != null">
+                        `client_settings` = #{clientSettings}, 
+                    </if>
+                    <if test="tokenSettings != null">
+                        `token_settings` = #{tokenSettings}
+                    </if>
+        </set>
+        <where>
+                    `id` = #{id}
+        </where>
+    </update>
+</mapper>

@@ -1,14 +1,17 @@
 package com.winfred.mall.oauth2.cofnig;
 
+import com.winfred.mall.oauth2.suport.MallUserDetailsAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
  * @author winfred958
  */
+@EnableWebSecurity
 @Configuration
 public class WebSecurityConfig {
 
@@ -21,11 +24,25 @@ public class WebSecurityConfig {
    */
   @Bean
   SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-    http.authorizeRequests(authorizeRequests -> authorizeRequests
-            .antMatchers("/token/*", "/oauth2/*").permitAll()// 开放自定义的部分端点
+    http
+        .authorizeRequests(authorizeRequests -> authorizeRequests
+            .antMatchers("/token/*").permitAll()// 开放自定义的部分端点
+            .antMatchers("/support/**").permitAll()// 开放自定义的部分端点
             .anyRequest()
-            .authenticated())
-        .headers().frameOptions().sameOrigin();// 避免iframe同源无法登录
+            .authenticated()
+        )
+        .headers()
+        .frameOptions()
+        // 避免iframe同源无法登录
+        .sameOrigin()
+//        .and()
+//        // 个性化登录界面
+//        .apply(new FormIdentityLoginConfigurer())
+    ;
+
+    // 处理 UsernamePasswordAuthenticationToken
+    http
+        .authenticationProvider(new MallUserDetailsAuthenticationProvider());
     return http.build();
   }
 

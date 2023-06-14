@@ -20,5 +20,7 @@ public class MallAuthenticationFailureHandler implements AuthenticationFailureHa
     // 记录日志?
     // 生成匿名token?
     // 返回错误页?
+    HttpServletRequest request1 = request;
+    log.info("authentication failed: {}", request);
   }
 }

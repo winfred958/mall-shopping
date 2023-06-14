@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winfred.mall.oauth2.mapper.Oauth2AuthorizationConsentMapper">
+
+        <!-- 通用查询映射结果 -->
+        <resultMap id="BaseResultMap" type="com.winfred.mall.oauth2.entity.Oauth2AuthorizationConsentEntity">
+                    <id column="registered_client_id" property="registeredClientId"/>
+                    <id column="principal_name" property="principalName"/>
+                    <result column="authorities" property="authorities"/>
+        </resultMap>
+
+        <!-- 通用查询结果列 -->
+        <sql id="Base_Column_List">
+                `registered_client_id`, 
+                `principal_name`, 
+                `authorities`
+        </sql>
+
+    <select id="queryList" resultMap="BaseResultMap" parameterType="com.winfred.mall.oauth2.entity.Oauth2AuthorizationConsentEntity">
+        SELECT
+            `registered_client_id`, 
+            `principal_name`, 
+            `authorities`
+        FROM `oauth2_authorization_consent`
+        <where>
+                <if test="registeredClientId != null and registeredClientId != ''">
+                    AND `registered_client_id` = #{registeredClientId}
+                </if>
+                <if test="principalName != null and principalName != ''">
+                    AND `principal_name` = #{principalName}
+                </if>
+                <if test="authorities != null and authorities != ''">
+                    AND `authorities` = #{authorities}
+                </if>
+        </where>
+        <if test="orders != null">
+            ORDER BY
+            <foreach collection="orders" item="order" open="" separator="," close="">
+                ${order.column} ${order.rule}
+            </foreach>
+        </if>
+        <if test="offset != null and size != null">
+            LIMIT ${offset}, ${size}
+        </if>
+    </select>
+
+    <select id="queryListCount" resultType="java.lang.Integer" parameterType="com.winfred.mall.oauth2.entity.Oauth2AuthorizationConsentEntity">
+        SELECT
+        COUNT(1)
+        FROM `oauth2_authorization_consent`
+        <where>
+                <if test="registeredClientId != null and registeredClientId != ''">
+                    AND `registered_client_id` = #{registeredClientId}
+                </if>
+                <if test="principalName != null and principalName != ''">
+                    AND `principal_name` = #{principalName}
+                </if>
+                <if test="authorities != null and authorities != ''">
+                    AND `authorities` = #{authorities}
+                </if>
+        </where>
+    </select>
+
+    <insert id="addOne" parameterType="com.winfred.mall.oauth2.entity.Oauth2AuthorizationConsentEntity">
+        INSERT INTO `oauth2_authorization_consent`
+        (
+            `registered_client_id`, 
+            `principal_name`, 
+            `authorities`
+        ) VALUES (
+            #{registeredClientId}, 
+            #{principalName}, 
+            #{authorities}
+        )
+    </insert>
+
+    <insert id="bulkUpsert" parameterType="java.util.List">
+        REPLACE INTO `oauth2_authorization_consent`
+        (
+            `registered_client_id`, 
+            `principal_name`, 
+            `authorities`
+        )
+        VALUES
+        <foreach collection="items" index="index" item="item" separator=",">
+            (
+                #{item.registeredClientId}, 
+                #{item.principalName}, 
+                #{item.authorities}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryByIds" resultMap="BaseResultMap" parameterType="java.util.List">
+        SELECT
+            `registered_client_id`, 
+            `principal_name`, 
+            `authorities`
+        FROM `oauth2_authorization_consent`
+        <where>
+                    registered_client_id IN
+                    principal_name IN
+            <foreach collection="items" item="item" open="(" separator="," close=")">#{item}
+            </foreach>
+        </where>
+    </select>
+
+    <update id="updateIfNotNullById" parameterType="com.winfred.mall.oauth2.entity.Oauth2AuthorizationConsentEntity">
+        UPDATE `oauth2_authorization_consent`
+        <set>
+                    <if test="authorities != null">
+                        `authorities` = #{authorities}
+                    </if>
+        </set>
+        <where>
+                    `registered_client_id` = #{registeredClientId}
+                    `principal_name` = #{principalName}
+        </where>
+    </update>
+</mapper>

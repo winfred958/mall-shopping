@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winfred.mall.oauth2.mapper.Oauth2AuthorizationMapper">
+
+        <!-- 通用查询映射结果 -->
+        <resultMap id="BaseResultMap" type="com.winfred.mall.oauth2.entity.Oauth2AuthorizationEntity">
+                    <id column="id" property="id"/>
+                    <result column="registered_client_id" property="registeredClientId"/>
+                    <result column="principal_name" property="principalName"/>
+                    <result column="authorization_grant_type" property="authorizationGrantType"/>
+                    <result column="attributes" property="attributes"/>
+                    <result column="state" property="state"/>
+                    <result column="authorization_code_value" property="authorizationCodeValue"/>
+                    <result column="authorization_code_issued_at" property="authorizationCodeIssuedAt"/>
+                    <result column="authorization_code_expires_at" property="authorizationCodeExpiresAt"/>
+                    <result column="authorization_code_metadata" property="authorizationCodeMetadata"/>
+                    <result column="access_token_value" property="accessTokenValue"/>
+                    <result column="access_token_issued_at" property="accessTokenIssuedAt"/>
+                    <result column="access_token_expires_at" property="accessTokenExpiresAt"/>
+                    <result column="access_token_metadata" property="accessTokenMetadata"/>
+                    <result column="access_token_type" property="accessTokenType"/>
+                    <result column="access_token_scopes" property="accessTokenScopes"/>
+                    <result column="oidc_id_token_value" property="oidcIdTokenValue"/>
+                    <result column="oidc_id_token_issued_at" property="oidcIdTokenIssuedAt"/>
+                    <result column="oidc_id_token_expires_at" property="oidcIdTokenExpiresAt"/>
+                    <result column="oidc_id_token_metadata" property="oidcIdTokenMetadata"/>
+                    <result column="refresh_token_value" property="refreshTokenValue"/>
+                    <result column="refresh_token_issued_at" property="refreshTokenIssuedAt"/>
+                    <result column="refresh_token_expires_at" property="refreshTokenExpiresAt"/>
+                    <result column="refresh_token_metadata" property="refreshTokenMetadata"/>
+        </resultMap>
+
+        <!-- 通用查询结果列 -->
+        <sql id="Base_Column_List">
+                `id`, 
+                `registered_client_id`, 
+                `principal_name`, 
+                `authorization_grant_type`, 
+                `attributes`, 
+                `state`, 
+                `authorization_code_value`, 
+                `authorization_code_issued_at`, 
+                `authorization_code_expires_at`, 
+                `authorization_code_metadata`, 
+                `access_token_value`, 
+                `access_token_issued_at`, 
+                `access_token_expires_at`, 
+                `access_token_metadata`, 
+                `access_token_type`, 
+                `access_token_scopes`, 
+                `oidc_id_token_value`, 
+                `oidc_id_token_issued_at`, 
+                `oidc_id_token_expires_at`, 
+                `oidc_id_token_metadata`, 
+                `refresh_token_value`, 
+                `refresh_token_issued_at`, 
+                `refresh_token_expires_at`, 
+                `refresh_token_metadata`
+        </sql>
+
+    <select id="queryList" resultMap="BaseResultMap" parameterType="com.winfred.mall.oauth2.entity.Oauth2AuthorizationEntity">
+        SELECT
+            `id`, 
+            `registered_client_id`, 
+            `principal_name`, 
+            `authorization_grant_type`, 
+            `attributes`, 
+            `state`, 
+            `authorization_code_value`, 
+            `authorization_code_issued_at`, 
+            `authorization_code_expires_at`, 
+            `authorization_code_metadata`, 
+            `access_token_value`, 
+            `access_token_issued_at`, 
+            `access_token_expires_at`, 
+            `access_token_metadata`, 
+            `access_token_type`, 
+            `access_token_scopes`, 
+            `oidc_id_token_value`, 
+            `oidc_id_token_issued_at`, 
+            `oidc_id_token_expires_at`, 
+            `oidc_id_token_metadata`, 
+            `refresh_token_value`, 
+            `refresh_token_issued_at`, 
+            `refresh_token_expires_at`, 
+            `refresh_token_metadata`
+        FROM `oauth2_authorization`
+        <where>
+                <if test="id != null and id != ''">
+                    AND `id` = #{id}
+                </if>
+                <if test="registeredClientId != null and registeredClientId != ''">
+                    AND `registered_client_id` = #{registeredClientId}
+                </if>
+                <if test="principalName != null and principalName != ''">
+                    AND `principal_name` = #{principalName}
+                </if>
+                <if test="authorizationGrantType != null and authorizationGrantType != ''">
+                    AND `authorization_grant_type` = #{authorizationGrantType}
+                </if>
+                <if test="attributes != null and attributes != ''">
+                    AND `attributes` = #{attributes}
+                </if>
+                <if test="state != null and state != ''">
+                    AND `state` = #{state}
+                </if>
+                <if test="authorizationCodeValue != null and authorizationCodeValue != ''">
+                    AND `authorization_code_value` = #{authorizationCodeValue}
+                </if>
+                <if test="authorizationCodeIssuedAt != null and authorizationCodeIssuedAt != ''">
+                    AND `authorization_code_issued_at` = #{authorizationCodeIssuedAt}
+                </if>
+                <if test="authorizationCodeExpiresAt != null and authorizationCodeExpiresAt != ''">
+                    AND `authorization_code_expires_at` = #{authorizationCodeExpiresAt}
+                </if>
+                <if test="authorizationCodeMetadata != null and authorizationCodeMetadata != ''">
+                    AND `authorization_code_metadata` = #{authorizationCodeMetadata}
+                </if>
+                <if test="accessTokenValue != null and accessTokenValue != ''">
+                    AND `access_token_value` = #{accessTokenValue}
+                </if>
+                <if test="accessTokenIssuedAt != null and accessTokenIssuedAt != ''">
+                    AND `access_token_issued_at` = #{accessTokenIssuedAt}
+                </if>
+                <if test="accessTokenExpiresAt != null and accessTokenExpiresAt != ''">
+                    AND `access_token_expires_at` = #{accessTokenExpiresAt}
+                </if>
+                <if test="accessTokenMetadata != null and accessTokenMetadata != ''">
+                    AND `access_token_metadata` = #{accessTokenMetadata}
+                </if>
+                <if test="accessTokenType != null and accessTokenType != ''">
+                    AND `access_token_type` = #{accessTokenType}
+                </if>
+                <if test="accessTokenScopes != null and accessTokenScopes != ''">
+                    AND `access_token_scopes` = #{accessTokenScopes}
+                </if>
+                <if test="oidcIdTokenValue != null and oidcIdTokenValue != ''">
+                    AND `oidc_id_token_value` = #{oidcIdTokenValue}
+                </if>
+                <if test="oidcIdTokenIssuedAt != null and oidcIdTokenIssuedAt != ''">
+                    AND `oidc_id_token_issued_at` = #{oidcIdTokenIssuedAt}
+                </if>
+                <if test="oidcIdTokenExpiresAt != null and oidcIdTokenExpiresAt != ''">
+                    AND `oidc_id_token_expires_at` = #{oidcIdTokenExpiresAt}
+                </if>
+                <if test="oidcIdTokenMetadata != null and oidcIdTokenMetadata != ''">
+                    AND `oidc_id_token_metadata` = #{oidcIdTokenMetadata}
+                </if>
+                <if test="refreshTokenValue != null and refreshTokenValue != ''">
+                    AND `refresh_token_value` = #{refreshTokenValue}
+                </if>
+                <if test="refreshTokenIssuedAt != null and refreshTokenIssuedAt != ''">
+                    AND `refresh_token_issued_at` = #{refreshTokenIssuedAt}
+                </if>
+                <if test="refreshTokenExpiresAt != null and refreshTokenExpiresAt != ''">
+                    AND `refresh_token_expires_at` = #{refreshTokenExpiresAt}
+                </if>
+                <if test="refreshTokenMetadata != null and refreshTokenMetadata != ''">
+                    AND `refresh_token_metadata` = #{refreshTokenMetadata}
+                </if>
+        </where>
+        <if test="orders != null">
+            ORDER BY
+            <foreach collection="orders" item="order" open="" separator="," close="">
+                ${order.column} ${order.rule}
+            </foreach>
+        </if>
+        <if test="offset != null and size != null">
+            LIMIT ${offset}, ${size}
+        </if>
+    </select>
+
+    <select id="queryListCount" resultType="java.lang.Integer" parameterType="com.winfred.mall.oauth2.entity.Oauth2AuthorizationEntity">
+        SELECT
+        COUNT(1)
+        FROM `oauth2_authorization`
+        <where>
+                <if test="id != null and id != ''">
+                    AND `id` = #{id}
+                </if>
+                <if test="registeredClientId != null and registeredClientId != ''">
+                    AND `registered_client_id` = #{registeredClientId}
+                </if>
+                <if test="principalName != null and principalName != ''">
+                    AND `principal_name` = #{principalName}
+                </if>
+                <if test="authorizationGrantType != null and authorizationGrantType != ''">
+                    AND `authorization_grant_type` = #{authorizationGrantType}
+                </if>
+                <if test="attributes != null and attributes != ''">
+                    AND `attributes` = #{attributes}
+                </if>
+                <if test="state != null and state != ''">
+                    AND `state` = #{state}
+                </if>
+                <if test="authorizationCodeValue != null and authorizationCodeValue != ''">
+                    AND `authorization_code_value` = #{authorizationCodeValue}
+                </if>
+                <if test="authorizationCodeIssuedAt != null and authorizationCodeIssuedAt != ''">
+                    AND `authorization_code_issued_at` = #{authorizationCodeIssuedAt}
+                </if>
+                <if test="authorizationCodeExpiresAt != null and authorizationCodeExpiresAt != ''">
+                    AND `authorization_code_expires_at` = #{authorizationCodeExpiresAt}
+                </if>
+                <if test="authorizationCodeMetadata != null and authorizationCodeMetadata != ''">
+                    AND `authorization_code_metadata` = #{authorizationCodeMetadata}
+                </if>
+                <if test="accessTokenValue != null and accessTokenValue != ''">
+                    AND `access_token_value` = #{accessTokenValue}
+                </if>
+                <if test="accessTokenIssuedAt != null and accessTokenIssuedAt != ''">
+                    AND `access_token_issued_at` = #{accessTokenIssuedAt}
+                </if>
+                <if test="accessTokenExpiresAt != null and accessTokenExpiresAt != ''">
+                    AND `access_token_expires_at` = #{accessTokenExpiresAt}
+                </if>
+                <if test="accessTokenMetadata != null and accessTokenMetadata != ''">
+                    AND `access_token_metadata` = #{accessTokenMetadata}
+                </if>
+                <if test="accessTokenType != null and accessTokenType != ''">
+                    AND `access_token_type` = #{accessTokenType}
+                </if>
+                <if test="accessTokenScopes != null and accessTokenScopes != ''">
+                    AND `access_token_scopes` = #{accessTokenScopes}
+                </if>
+                <if test="oidcIdTokenValue != null and oidcIdTokenValue != ''">
+                    AND `oidc_id_token_value` = #{oidcIdTokenValue}
+                </if>
+                <if test="oidcIdTokenIssuedAt != null and oidcIdTokenIssuedAt != ''">
+                    AND `oidc_id_token_issued_at` = #{oidcIdTokenIssuedAt}
+                </if>
+                <if test="oidcIdTokenExpiresAt != null and oidcIdTokenExpiresAt != ''">
+                    AND `oidc_id_token_expires_at` = #{oidcIdTokenExpiresAt}
+                </if>
+                <if test="oidcIdTokenMetadata != null and oidcIdTokenMetadata != ''">
+                    AND `oidc_id_token_metadata` = #{oidcIdTokenMetadata}
+                </if>
+                <if test="refreshTokenValue != null and refreshTokenValue != ''">
+                    AND `refresh_token_value` = #{refreshTokenValue}
+                </if>
+                <if test="refreshTokenIssuedAt != null and refreshTokenIssuedAt != ''">
+                    AND `refresh_token_issued_at` = #{refreshTokenIssuedAt}
+                </if>
+                <if test="refreshTokenExpiresAt != null and refreshTokenExpiresAt != ''">
+                    AND `refresh_token_expires_at` = #{refreshTokenExpiresAt}
+                </if>
+                <if test="refreshTokenMetadata != null and refreshTokenMetadata != ''">
+                    AND `refresh_token_metadata` = #{refreshTokenMetadata}
+                </if>
+        </where>
+    </select>
+
+    <insert id="addOne" parameterType="com.winfred.mall.oauth2.entity.Oauth2AuthorizationEntity">
+        INSERT INTO `oauth2_authorization`
+        (
+            `id`, 
+            `registered_client_id`, 
+            `principal_name`, 
+            `authorization_grant_type`, 
+            `attributes`, 
+            `state`, 
+            `authorization_code_value`, 
+            `authorization_code_issued_at`, 
+            `authorization_code_expires_at`, 
+            `authorization_code_metadata`, 
+            `access_token_value`, 
+            `access_token_issued_at`, 
+            `access_token_expires_at`, 
+            `access_token_metadata`, 
+            `access_token_type`, 
+            `access_token_scopes`, 
+            `oidc_id_token_value`, 
+            `oidc_id_token_issued_at`, 
+            `oidc_id_token_expires_at`, 
+            `oidc_id_token_metadata`, 
+            `refresh_token_value`, 
+            `refresh_token_issued_at`, 
+            `refresh_token_expires_at`, 
+            `refresh_token_metadata`
+        ) VALUES (
+            #{id}, 
+            #{registeredClientId}, 
+            #{principalName}, 
+            #{authorizationGrantType}, 
+            #{attributes}, 
+            #{state}, 
+            #{authorizationCodeValue}, 
+            #{authorizationCodeIssuedAt}, 
+            #{authorizationCodeExpiresAt}, 
+            #{authorizationCodeMetadata}, 
+            #{accessTokenValue}, 
+            #{accessTokenIssuedAt}, 
+            #{accessTokenExpiresAt}, 
+            #{accessTokenMetadata}, 
+            #{accessTokenType}, 
+            #{accessTokenScopes}, 
+            #{oidcIdTokenValue}, 
+            #{oidcIdTokenIssuedAt}, 
+            #{oidcIdTokenExpiresAt}, 
+            #{oidcIdTokenMetadata}, 
+            #{refreshTokenValue}, 
+            #{refreshTokenIssuedAt}, 
+            #{refreshTokenExpiresAt}, 
+            #{refreshTokenMetadata}
+        )
+    </insert>
+
+    <insert id="bulkUpsert" parameterType="java.util.List">
+        REPLACE INTO `oauth2_authorization`
+        (
+            `id`, 
+            `registered_client_id`, 
+            `principal_name`, 
+            `authorization_grant_type`, 
+            `attributes`, 
+            `state`, 
+            `authorization_code_value`, 
+            `authorization_code_issued_at`, 
+            `authorization_code_expires_at`, 
+            `authorization_code_metadata`, 
+            `access_token_value`, 
+            `access_token_issued_at`, 
+            `access_token_expires_at`, 
+            `access_token_metadata`, 
+            `access_token_type`, 
+            `access_token_scopes`, 
+            `oidc_id_token_value`, 
+            `oidc_id_token_issued_at`, 
+            `oidc_id_token_expires_at`, 
+            `oidc_id_token_metadata`, 
+            `refresh_token_value`, 
+            `refresh_token_issued_at`, 
+            `refresh_token_expires_at`, 
+            `refresh_token_metadata`
+        )
+        VALUES
+        <foreach collection="items" index="index" item="item" separator=",">
+            (
+                #{item.id}, 
+                #{item.registeredClientId}, 
+                #{item.principalName}, 
+                #{item.authorizationGrantType}, 
+                #{item.attributes}, 
+                #{item.state}, 
+                #{item.authorizationCodeValue}, 
+                #{item.authorizationCodeIssuedAt}, 
+                #{item.authorizationCodeExpiresAt}, 
+                #{item.authorizationCodeMetadata}, 
+                #{item.accessTokenValue}, 
+                #{item.accessTokenIssuedAt}, 
+                #{item.accessTokenExpiresAt}, 
+                #{item.accessTokenMetadata}, 
+                #{item.accessTokenType}, 
+                #{item.accessTokenScopes}, 
+                #{item.oidcIdTokenValue}, 
+                #{item.oidcIdTokenIssuedAt}, 
+                #{item.oidcIdTokenExpiresAt}, 
+                #{item.oidcIdTokenMetadata}, 
+                #{item.refreshTokenValue}, 
+                #{item.refreshTokenIssuedAt}, 
+                #{item.refreshTokenExpiresAt}, 
+                #{item.refreshTokenMetadata}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryByIds" resultMap="BaseResultMap" parameterType="java.util.List">
+        SELECT
+            `id`, 
+            `registered_client_id`, 
+            `principal_name`, 
+            `authorization_grant_type`, 
+            `attributes`, 
+            `state`, 
+            `authorization_code_value`, 
+            `authorization_code_issued_at`, 
+            `authorization_code_expires_at`, 
+            `authorization_code_metadata`, 
+            `access_token_value`, 
+            `access_token_issued_at`, 
+            `access_token_expires_at`, 
+            `access_token_metadata`, 
+            `access_token_type`, 
+            `access_token_scopes`, 
+            `oidc_id_token_value`, 
+            `oidc_id_token_issued_at`, 
+            `oidc_id_token_expires_at`, 
+            `oidc_id_token_metadata`, 
+            `refresh_token_value`, 
+            `refresh_token_issued_at`, 
+            `refresh_token_expires_at`, 
+            `refresh_token_metadata`
+        FROM `oauth2_authorization`
+        <where>
+                    id IN
+            <foreach collection="items" item="item" open="(" separator="," close=")">#{item}
+            </foreach>
+        </where>
+    </select>
+
+    <update id="updateIfNotNullById" parameterType="com.winfred.mall.oauth2.entity.Oauth2AuthorizationEntity">
+        UPDATE `oauth2_authorization`
+        <set>
+                    <if test="registeredClientId != null">
+                        `registered_client_id` = #{registeredClientId}, 
+                    </if>
+                    <if test="principalName != null">
+                        `principal_name` = #{principalName}, 
+                    </if>
+                    <if test="authorizationGrantType != null">
+                        `authorization_grant_type` = #{authorizationGrantType}, 
+                    </if>
+                    <if test="attributes != null">
+                        `attributes` = #{attributes}, 
+                    </if>
+                    <if test="state != null">
+                        `state` = #{state}, 
+                    </if>
+                    <if test="authorizationCodeValue != null">
+                        `authorization_code_value` = #{authorizationCodeValue}, 
+                    </if>
+                    <if test="authorizationCodeIssuedAt != null">
+                        `authorization_code_issued_at` = #{authorizationCodeIssuedAt}, 
+                    </if>
+                    <if test="authorizationCodeExpiresAt != null">
+                        `authorization_code_expires_at` = #{authorizationCodeExpiresAt}, 
+                    </if>
+                    <if test="authorizationCodeMetadata != null">
+                        `authorization_code_metadata` = #{authorizationCodeMetadata}, 
+                    </if>
+                    <if test="accessTokenValue != null">
+                        `access_token_value` = #{accessTokenValue}, 
+                    </if>
+                    <if test="accessTokenIssuedAt != null">
+                        `access_token_issued_at` = #{accessTokenIssuedAt}, 
+                    </if>
+                    <if test="accessTokenExpiresAt != null">
+                        `access_token_expires_at` = #{accessTokenExpiresAt}, 
+                    </if>
+                    <if test="accessTokenMetadata != null">
+                        `access_token_metadata` = #{accessTokenMetadata}, 
+                    </if>
+                    <if test="accessTokenType != null">
+                        `access_token_type` = #{accessTokenType}, 
+                    </if>
+                    <if test="accessTokenScopes != null">
+                        `access_token_scopes` = #{accessTokenScopes}, 
+                    </if>
+                    <if test="oidcIdTokenValue != null">
+                        `oidc_id_token_value` = #{oidcIdTokenValue}, 
+                    </if>
+                    <if test="oidcIdTokenIssuedAt != null">
+                        `oidc_id_token_issued_at` = #{oidcIdTokenIssuedAt}, 
+                    </if>
+                    <if test="oidcIdTokenExpiresAt != null">
+                        `oidc_id_token_expires_at` = #{oidcIdTokenExpiresAt}, 
+                    </if>
+                    <if test="oidcIdTokenMetadata != null">
+                        `oidc_id_token_metadata` = #{oidcIdTokenMetadata}, 
+                    </if>
+                    <if test="refreshTokenValue != null">
+                        `refresh_token_value` = #{refreshTokenValue}, 
+                    </if>
+                    <if test="refreshTokenIssuedAt != null">
+                        `refresh_token_issued_at` = #{refreshTokenIssuedAt}, 
+                    </if>
+                    <if test="refreshTokenExpiresAt != null">
+                        `refresh_token_expires_at` = #{refreshTokenExpiresAt}, 
+                    </if>
+                    <if test="refreshTokenMetadata != null">
+                        `refresh_token_metadata` = #{refreshTokenMetadata}
+                    </if>
+        </set>
+        <where>
+                    `id` = #{id}
+        </where>
+    </update>
+</mapper>
