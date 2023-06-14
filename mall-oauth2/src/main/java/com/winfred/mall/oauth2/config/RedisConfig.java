@@ -1,4 +1,4 @@
-package com.winfred.mall.oauth2.cofnig;
+package com.winfred.mall.oauth2.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.context.annotation.Bean;

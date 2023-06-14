@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  *
  * @author winfred958
  */
-public abstract class AbstractAuth2BaseAuthenticationConverter<T extends AbstractAuth2BaseAuthenticationToken>
+public abstract class AbstractResourceOwnerAuthenticationConverter<T extends AbstractResourceOwnerAuthenticationToken>
     implements AuthenticationConverter, AuthenticationConverterExt {
 
 

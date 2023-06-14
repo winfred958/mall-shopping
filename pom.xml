@@ -34,6 +34,7 @@
     <spring-cloud.version>3.1.6</spring-cloud.version>
     <spring-cloud-alibaba-dependencies.version>2021.1</spring-cloud-alibaba-dependencies.version>
     <spring.version>5.3.27</spring.version>
+    <spring-security.version>5.8.3</spring-security.version>
     <shenyu.version>2.5.1</shenyu.version>
 
     <!-- DB -->
@@ -319,6 +320,13 @@
           </exclusion>
         </exclusions>
       </dependency>
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-test</artifactId>
+        <version>${spring-security.version}</version>
+        <scope>test</scope>
+      </dependency>
+
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-devtools</artifactId>

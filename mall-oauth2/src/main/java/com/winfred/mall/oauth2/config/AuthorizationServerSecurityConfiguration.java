@@ -1,4 +1,4 @@
-package com.winfred.mall.oauth2.cofnig;
+package com.winfred.mall.oauth2.config;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;

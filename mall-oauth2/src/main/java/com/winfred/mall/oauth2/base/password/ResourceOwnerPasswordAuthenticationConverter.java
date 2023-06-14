@@ -1,6 +1,6 @@
 package com.winfred.mall.oauth2.base.password;
 
-import com.winfred.mall.oauth2.base.AbstractAuth2BaseAuthenticationConverter;
+import com.winfred.mall.oauth2.base.AbstractResourceOwnerAuthenticationConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
@@ -16,13 +16,13 @@ import java.util.Set;
  * @author winfred958
  */
 @Slf4j
-public class PasswordAuthenticationConverter extends AbstractAuth2BaseAuthenticationConverter<PasswordAuthenticationToken> {
+public class ResourceOwnerPasswordAuthenticationConverter extends AbstractResourceOwnerAuthenticationConverter<ResourceOwnerPasswordAuthenticationToken> {
 
   @Override
-  public PasswordAuthenticationToken buildToken(final Authentication authentication,
-                                                final Set<String> scopes,
-                                                final Map<String, Object> additionalAttrs) {
-    return new PasswordAuthenticationToken(AuthorizationGrantType.PASSWORD, authentication, scopes, additionalAttrs);
+  public ResourceOwnerPasswordAuthenticationToken buildToken(final Authentication authentication,
+                                                             final Set<String> scopes,
+                                                             final Map<String, Object> additionalAttrs) {
+    return new ResourceOwnerPasswordAuthenticationToken(AuthorizationGrantType.PASSWORD, authentication, scopes, additionalAttrs);
   }
 
   @Override

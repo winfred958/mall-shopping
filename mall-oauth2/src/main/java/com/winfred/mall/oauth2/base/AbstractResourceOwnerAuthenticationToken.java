@@ -16,7 +16,7 @@ import java.util.*;
  *
  * @author winfred958
  */
-public abstract class AbstractAuth2BaseAuthenticationToken extends AbstractAuthenticationToken {
+public abstract class AbstractResourceOwnerAuthenticationToken extends AbstractAuthenticationToken {
 
   private static final long serialVersionUID = -1836148487179340083L;
 
@@ -33,9 +33,9 @@ public abstract class AbstractAuth2BaseAuthenticationToken extends AbstractAuthe
   private final Map<String, Object> additionalAttrs;
 
 
-  public AbstractAuth2BaseAuthenticationToken(AuthorizationGrantType authorizationGrantType,
-                                              Authentication authentication, @Nullable Set<String> scopes,
-                                              @Nullable Map<String, Object> additionalAttrs) {
+  public AbstractResourceOwnerAuthenticationToken(AuthorizationGrantType authorizationGrantType,
+                                                  Authentication authentication, @Nullable Set<String> scopes,
+                                                  @Nullable Map<String, Object> additionalAttrs) {
     super(Collections.emptyList());
     Assert.notNull(authorizationGrantType, "authorizationGrantType cannot be null");
     Assert.notNull(authentication, "authentication cannot be null");
