@@ -28,6 +28,7 @@ public class WebSecurityConfig {
         .authorizeRequests(authorizeRequests -> authorizeRequests
             .antMatchers("/token/*").permitAll()// 开放自定义的部分端点
             .antMatchers("/support/**").permitAll()// 开放自定义的部分端点
+            .antMatchers("/oauth2/**").permitAll()// 开放自定义的部分端点
             .anyRequest()
             .authenticated()
         )

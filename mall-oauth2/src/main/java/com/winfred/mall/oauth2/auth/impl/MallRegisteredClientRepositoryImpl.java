@@ -11,25 +11,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
-import org.springframework.security.oauth2.server.authorization.config.ClientSettings;
-import org.springframework.security.oauth2.server.authorization.config.TokenSettings;
+import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
+import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * OAuth2 Server Client repository 实现
+ * <p>
+ * 1. 查询 authorization server 注册的client 信息
  *
  * @author winfred958
  */
 @Component
 public class MallRegisteredClientRepositoryImpl implements MallRegisteredClientRepository {
 
+  @SuppressWarnings("all")
   @Autowired
   private IOauth2RegisteredClientService oauth2RegisteredClientService;
 
@@ -111,11 +115,15 @@ public class MallRegisteredClientRepositoryImpl implements MallRegisteredClientR
 
     // client settings
     Map<String, Object> settingsMap = str2Map(entity.getClientSettings());
-    builder.clientSettings(ClientSettings.withSettings(settingsMap).build());
+    if (!CollectionUtils.isEmpty(settingsMap)) {
+      builder.clientSettings(ClientSettings.withSettings(settingsMap).build());
+    }
 
     // token settings
     Map<String, Object> tokenSettingsMap = str2Map(entity.getTokenSettings());
-    builder.tokenSettings(TokenSettings.withSettings(tokenSettingsMap).build());
+    if(!CollectionUtils.isEmpty(tokenSettingsMap)){
+      builder.tokenSettings(TokenSettings.withSettings(tokenSettingsMap).build());
+    }
 
     return builder.build();
   }
@@ -126,6 +134,9 @@ public class MallRegisteredClientRepositoryImpl implements MallRegisteredClientR
   }
 
   private Map<String, Object> str2Map(final String redirectUris) {
+    if (null == redirectUris) {
+      return new HashMap<>();
+    }
     return JSON.parseObject(redirectUris, new TypeReference<Map<String, Object>>() {
     });
   }

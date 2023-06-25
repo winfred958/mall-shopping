@@ -1,15 +1,17 @@
 package com.winfred.mall.oauth2.auth.storage;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.oauth2.core.OAuth2AuthorizationCode;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationCode;
 
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 授权码模式
+ *
  * @author winfred958
  */
 public class AuthStorageHandlerCode implements AuthStorageHandler {

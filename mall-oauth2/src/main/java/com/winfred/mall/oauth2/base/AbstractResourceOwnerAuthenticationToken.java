@@ -12,6 +12,8 @@ import java.util.*;
 /**
  * 自定义授权模式
  * <p>
+ * 构造 token，实现自 Authentication
+ * <p>
  * AbstractAuthenticationToken
  *
  * @author winfred958

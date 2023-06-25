@@ -33,7 +33,7 @@ import java.util.function.Supplier;
  * 2. 交给 spring security 进行认证.
  * 3. 构建 access_token
  * 4. 构建 refresh_token
- * 5. 持久化 authentication
+ * 5. 持久化 authentication，存储令牌
  *
  * @author winfred958
  */

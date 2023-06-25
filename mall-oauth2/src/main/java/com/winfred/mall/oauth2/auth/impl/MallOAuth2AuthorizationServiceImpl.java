@@ -6,8 +6,8 @@ import com.winfred.mall.oauth2.auth.storage.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.security.oauth2.core.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
+import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
@@ -43,12 +43,15 @@ public class MallOAuth2AuthorizationServiceImpl implements MallOAuth2Authorizati
 
       @Override
       public void save(final String key, final Object data, final long timeout, final TimeUnit unit) {
-        redisTemplate.opsForValue().set(key, data, timeout, unit);
+        redisTemplate
+            .opsForValue()
+            .set(key, data, timeout, unit);
       }
 
       @Override
       public void remove(final String key) {
-        redisTemplate.delete(key);
+        redisTemplate
+            .delete(key);
       }
     };
 

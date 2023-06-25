@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 /**
  * 自定义 认证转换器
  * <p>
- * request -> authentication
+ * request -> authentication 对象
  *
  * @author winfred958
  */
