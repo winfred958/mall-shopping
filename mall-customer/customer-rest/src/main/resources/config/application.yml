@@ -25,7 +25,7 @@ spring:
 system:
   logging:
     file: /data/log/${spring.application.name}/${spring.application.name}.log
-    format: "[%date{yyyy-MM-dd HH:mm:ss.SSS}{GMT+8}] [%-5level] [%X{trace_id}] [%class{0}:%method:%line] [%t] [-[%msg]-] %n"
+    format: "%date{ISO08601_OFFSET_DATE_TIME_HHCMM} %level [%thread] [%X{trace_id}] [%logger{10}#%method:%line] - %msg%n%throwable"
 
 logging:
   file:
@@ -34,7 +34,6 @@ logging:
     name: ${system.logging.file}
   pattern:
     file: ${system.logging.format}
-
 
 management:
   endpoints:

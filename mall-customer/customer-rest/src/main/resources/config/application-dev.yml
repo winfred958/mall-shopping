@@ -10,8 +10,8 @@ common.cache.expireAfterWrite: 30
 common.cache.expireAfterAccess: 30
 
 logging.file.name: ${system.logging.file}
-logging.pattern.file: "[%date{yyyy-MM-dd HH:mm:ss.SSS}{GMT+8}] [%level] [%X{traceId}] [%file:%line#(%method)] [%thread] [%msg]%n"
-logging.pattern.console: "[%date{yyyy-MM-dd HH:mm:ss.SSS}{GMT+8}] [%level] [%X{traceId}] [%file:%line#(%method)] [%thread] [%msg]%n"
+logging.pattern.file: "%date{ISO08601_OFFSET_DATE_TIME_HHCMM} %level [%thread] [%X{trace_id}] [%logger{10}#%method:%line] - %msg%n%throwable"
+logging.pattern.console: "%date{ISO08601_OFFSET_DATE_TIME_HHCMM} %level [%thread] [%X{trace_id}] [%logger{10}#%method:%line] - %msg%n%throwable"
 
 logging.level.org.springframework.security: DEBUG
 ############

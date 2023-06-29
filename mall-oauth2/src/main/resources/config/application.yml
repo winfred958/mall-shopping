@@ -27,8 +27,8 @@ logging:
     max-history: 7
     max-size: 521MB
   pattern:
-    file: "[%date{yyyy-MM-dd HH:mm:ss.SSS}{GMT+8}] [%level] [%X{traceId}] [%file:%line#(%method)] [%thread] [%msg]%n"
-    console: "[%date{yyyy-MM-dd HH:mm:ss.SSS}{GMT+8}] [%level] [%X{traceId}] [%file:%line#(%method)] [%thread] [%msg]%n"
+    file: "%date{ISO08601_OFFSET_DATE_TIME_HHCMM} %level [%thread] [%X{trace_id}] [%logger{10}#%method:%line] - %msg%n%throwable"
+    console: "%date{ISO08601_OFFSET_DATE_TIME_HHCMM} %level [%thread] [%X{trace_id}] [%logger{10}#%method:%line] - %msg%n%throwable"
   log4j2:
     config:
       override:

@@ -50,7 +50,8 @@ public class AuthorizationServerSecurityConfiguration {
   @Order(Ordered.HIGHEST_PRECEDENCE)
   public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
     OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(httpSecurity);
-    OAuth2AuthorizationServerConfigurer securityConfigurer = httpSecurity.getConfigurer(OAuth2AuthorizationServerConfigurer.class);
+    OAuth2AuthorizationServerConfigurer securityConfigurer = httpSecurity
+        .getConfigurer(OAuth2AuthorizationServerConfigurer.class);
 
     securityConfigurer
         .tokenEndpoint(new Customizer<OAuth2TokenEndpointConfigurer>() {
